@@ -97,22 +97,22 @@ pub struct HAL_ControlWord {
 // TODO(Kyle) Check the memory layout of C bitfields on RoboRIO
 impl HAL_ControlWord {
     pub fn enabled(&self) -> bool {
-        self.data & (1 << 31) > 0u32
+        self.data & (1 << 31) != 0u32
     }
     pub fn autonomous(&self) -> bool {
-        self.data & (1 << 30) > 0u32
+        self.data & (1 << 30) != 0u32
     }
     pub fn test(&self) -> bool {
-        self.data & (1 << 29) > 0u32
+        self.data & (1 << 29) != 0u32
     }
     pub fn eStop(&self) -> bool {
-        self.data & (1 << 28) > 0u32
+        self.data & (1 << 28) != 0u32
     }
     pub fn fmsAttached(&self) -> bool {
-        self.data & (1 << 27) > 0u32
+        self.data & (1 << 27) != 0u32
     }
     pub fn dsAttached(&self) -> bool {
-        self.data & (1 << 26) > 0u32
+        self.data & (1 << 26) != 0u32
     }
 }
 impl ::std::default::Default for HAL_ControlWord {
