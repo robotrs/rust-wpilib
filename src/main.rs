@@ -7,6 +7,9 @@ struct TestRobot;
 impl Robot for TestRobot {
     fn run(self) {
         println!("Running!");
+        loop {
+            println!("{:?}", DriverStation::instance().get_joystick_axis(0, 1));
+        }
     }
 
     fn new() -> TestRobot {
