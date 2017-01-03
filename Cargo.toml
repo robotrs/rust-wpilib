@@ -2,6 +2,7 @@
 name = "wpilib"
 version = "0.1.0"
 authors = ["Kyle Stachowicz <kylestach99@gmail.com>"]
+build = "build.rs"
 
 [lib]
 name = "wpilib"
