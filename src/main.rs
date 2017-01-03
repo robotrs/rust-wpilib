@@ -1,6 +1,17 @@
+#[macro_use]
 extern crate wpilib;
 use wpilib::*;
 
-fn main() {
-    unsafe{ let _ = wpilib::wpilib_hal::HAL_Initialize(0); }
+struct TestRobot;
+
+impl Robot for TestRobot {
+    fn run(self) {
+        println!("Running!");
+    }
+
+    fn new() -> TestRobot {
+        TestRobot {}
+    }
 }
+
+start_robot_class!{TestRobot}
