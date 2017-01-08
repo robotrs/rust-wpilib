@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2016. All Rights Reserved.                             */
+/* Copyright (c) FIRST 2016-2017. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -85,7 +85,15 @@
 
 #define HAL_SERIAL_PORT_NOT_FOUND -1123
 #define HAL_SERIAL_PORT_NOT_FOUND_MESSAGE \
-  "HAL: The specified serial port device was not found";
+  "HAL: The specified serial port device was not found"
+
+#define HAL_SERIAL_PORT_OPEN_ERROR -1124
+#define HAL_SERIAL_PORT_OPEN_ERROR_MESSAGE \
+  "HAL: The serial port could not be opened"
+
+#define HAL_SERIAL_PORT_ERROR -1125
+#define HAL_SERIAL_PORT_ERROR_MESSAGE \
+  "HAL: There was an error on the serial port"
 
 #define HAL_THREAD_PRIORITY_ERROR -1152
 #define HAL_THREAD_PRIORITY_ERROR_MESSAGE \

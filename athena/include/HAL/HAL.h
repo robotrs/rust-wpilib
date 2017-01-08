@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2013-2016. All Rights Reserved.                        */
+/* Copyright (c) FIRST 2013-2017. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -17,11 +17,14 @@
 #include "HAL/AnalogInput.h"
 #include "HAL/AnalogOutput.h"
 #include "HAL/AnalogTrigger.h"
+#include "HAL/CAN.h"
+#include "FRC_FPGA_ChipObject/fpgainterfacecapi/NiFpga.h"
 #include "HAL/Compressor.h"
 #include "HAL/Constants.h"
 #include "HAL/Counter.h"
 #include "HAL/DIO.h"
 #include "HAL/DriverStation.h"
+#include "HAL/Encoder.h"
 #include "HAL/Errors.h"
 #include "HAL/I2C.h"
 #include "HAL/Interrupts.h"
@@ -34,13 +37,12 @@
 #include "HAL/SPI.h"
 #include "HAL/SerialPort.h"
 #include "HAL/Solenoid.h"
+#include "HAL/Threads.h"
 
 #endif  // HAL_USE_LABVIEW
 
 #include "FRC_NetworkCommunication/UsageReporting.h"
 #include "HAL/Types.h"
-
-// namespace HALUsageReporting = nUsageReporting;
 
 enum HAL_RuntimeType { HAL_Athena, HAL_Mock };
 

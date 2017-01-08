@@ -4,6 +4,80 @@
          non_camel_case_types,
          non_upper_case_globals,
          non_snake_case)]
+pub const HAL_kInvalidHandle: ::std::os::raw::c_uchar = 0;
+pub const CAN_SEND_PERIOD_NO_REPEAT: ::std::os::raw::c_uchar = 0;
+pub const CAN_SEND_PERIOD_STOP_REPEATING: ::std::os::raw::c_char = 255;
+pub const CAN_IS_FRAME_REMOTE: ::std::os::raw::c_uint = 2147483648;
+pub const CAN_IS_FRAME_11BIT: ::std::os::raw::c_uint = 1073741824;
+pub const ERR_CANSessionMux_InvalidBuffer: ::std::os::raw::c_int = -44086;
+pub const ERR_CANSessionMux_MessageNotFound: ::std::os::raw::c_int = -44087;
+pub const WARN_CANSessionMux_NoToken: ::std::os::raw::c_ushort = 44087;
+pub const ERR_CANSessionMux_NotAllowed: ::std::os::raw::c_int = -44088;
+pub const ERR_CANSessionMux_NotInitialized: ::std::os::raw::c_int = -44089;
+pub const ERR_CANSessionMux_SessionOverrun: ::std::os::raw::c_ushort = 44050;
+pub const NiFpga_Linux: ::std::os::raw::c_uchar = 1;
+pub const NiFpga_Gcc: ::std::os::raw::c_uchar = 1;
+pub const NiFpga_C89: ::std::os::raw::c_uchar = 1;
+pub const NiFpga_C90: ::std::os::raw::c_uchar = 1;
+pub const NiFpga_C94: ::std::os::raw::c_uchar = 1;
+pub const NiFpga_C99: ::std::os::raw::c_uchar = 1;
+pub const NiFpga_C11: ::std::os::raw::c_uchar = 1;
+pub const HAL_IO_CONFIG_DATA_SIZE: ::std::os::raw::c_uchar = 32;
+pub const HAL_SYS_STATUS_DATA_SIZE: ::std::os::raw::c_uchar = 44;
+pub const HAL_USER_STATUS_DATA_SIZE: ::std::os::raw::c_ushort = 908;
+pub const HALFRC_NetworkCommunication_DynamicType_DSEnhancedIO_Input:
+          ::std::os::raw::c_uchar =
+    17;
+pub const HALFRC_NetworkCommunication_DynamicType_DSEnhancedIO_Output:
+          ::std::os::raw::c_uchar =
+    18;
+pub const HALFRC_NetworkCommunication_DynamicType_Kinect_Header:
+          ::std::os::raw::c_uchar =
+    19;
+pub const HALFRC_NetworkCommunication_DynamicType_Kinect_Extra1:
+          ::std::os::raw::c_uchar =
+    20;
+pub const HALFRC_NetworkCommunication_DynamicType_Kinect_Vertices1:
+          ::std::os::raw::c_uchar =
+    21;
+pub const HALFRC_NetworkCommunication_DynamicType_Kinect_Extra2:
+          ::std::os::raw::c_uchar =
+    22;
+pub const HALFRC_NetworkCommunication_DynamicType_Kinect_Vertices2:
+          ::std::os::raw::c_uchar =
+    23;
+pub const HALFRC_NetworkCommunication_DynamicType_Kinect_Joystick:
+          ::std::os::raw::c_uchar =
+    24;
+pub const HALFRC_NetworkCommunication_DynamicType_Kinect_Custom:
+          ::std::os::raw::c_uchar =
+    25;
+pub const HAL_kMaxJoystickAxes: ::std::os::raw::c_uchar = 12;
+pub const HAL_kMaxJoystickPOVs: ::std::os::raw::c_uchar = 12;
+pub const SAMPLE_RATE_TOO_HIGH: ::std::os::raw::c_ushort = 1001;
+pub const VOLTAGE_OUT_OF_RANGE: ::std::os::raw::c_ushort = 1002;
+pub const LOOP_TIMING_ERROR: ::std::os::raw::c_ushort = 1004;
+pub const SPI_WRITE_NO_MOSI: ::std::os::raw::c_ushort = 1012;
+pub const SPI_READ_NO_MISO: ::std::os::raw::c_ushort = 1013;
+pub const SPI_READ_NO_DATA: ::std::os::raw::c_ushort = 1014;
+pub const INCOMPATIBLE_STATE: ::std::os::raw::c_ushort = 1015;
+pub const NO_AVAILABLE_RESOURCES: ::std::os::raw::c_short = -1004;
+pub const NULL_PARAMETER: ::std::os::raw::c_short = -1005;
+pub const ANALOG_TRIGGER_LIMIT_ORDER_ERROR: ::std::os::raw::c_short = -1010;
+pub const ANALOG_TRIGGER_PULSE_OUTPUT_ERROR: ::std::os::raw::c_short = -1011;
+pub const PARAMETER_OUT_OF_RANGE: ::std::os::raw::c_short = -1028;
+pub const RESOURCE_IS_ALLOCATED: ::std::os::raw::c_short = -1029;
+pub const RESOURCE_OUT_OF_RANGE: ::std::os::raw::c_short = -1030;
+pub const HAL_INVALID_ACCUMULATOR_CHANNEL: ::std::os::raw::c_short = -1035;
+pub const HAL_COUNTER_NOT_SUPPORTED: ::std::os::raw::c_short = -1058;
+pub const HAL_PWM_SCALE_ERROR: ::std::os::raw::c_short = -1072;
+pub const HAL_HANDLE_ERROR: ::std::os::raw::c_short = -1098;
+pub const HAL_SERIAL_PORT_NOT_FOUND: ::std::os::raw::c_short = -1123;
+pub const HAL_SERIAL_PORT_OPEN_ERROR: ::std::os::raw::c_short = -1124;
+pub const HAL_SERIAL_PORT_ERROR: ::std::os::raw::c_short = -1125;
+pub const HAL_THREAD_PRIORITY_ERROR: ::std::os::raw::c_short = -1152;
+pub const HAL_THREAD_PRIORITY_RANGE_ERROR: ::std::os::raw::c_short = -1153;
+pub const kUsageReporting_version: ::std::os::raw::c_uchar = 1;
 pub type int8_t = i8;
 pub type int16_t = i16;
 pub type int32_t = i32;
@@ -66,14 +140,17 @@ pub enum HAL_AnalogTriggerType {
     HAL_Trigger_kRisingPulse = 2,
     HAL_Trigger_kFallingPulse = 3,
 }
+#[repr(C)]
 #[derive(Copy, Clone)]
-#[repr(u32)]
 #[derive(Debug)]
-pub enum HAL_Counter_Mode {
-    HAL_Counter_kTwoPulse = 0,
-    HAL_Counter_kSemiperiod = 1,
-    HAL_Counter_kPulseLength = 2,
-    HAL_Counter_kExternalDirection = 3,
+pub struct tCANStreamMessage {
+    pub messageID: uint32_t,
+    pub timeStamp: uint32_t,
+    pub data: [uint8_t; 8usize],
+    pub dataSize: uint8_t,
+}
+impl ::std::default::Default for tCANStreamMessage {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type ptrdiff_t = isize;
 pub type size_t = usize;
@@ -88,31 +165,94 @@ pub struct max_align_t {
 impl ::std::default::Default for max_align_t {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
+pub type NiFpga_Bool = uint8_t;
+pub type NiFpga_Status = int32_t;
+pub type NiFpga_Session = uint32_t;
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum NiFpga_OpenAttribute { NiFpga_OpenAttribute_NoRun = 1, }
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum NiFpga_CloseAttribute {
+    NiFpga_CloseAttribute_NoResetIfLastSession = 1,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum NiFpga_RunAttribute { NiFpga_RunAttribute_WaitUntilDone = 1, }
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum NiFpga_Irq {
+    NiFpga_Irq_0 = 1,
+    NiFpga_Irq_1 = 2,
+    NiFpga_Irq_2 = 4,
+    NiFpga_Irq_3 = 8,
+    NiFpga_Irq_4 = 16,
+    NiFpga_Irq_5 = 32,
+    NiFpga_Irq_6 = 64,
+    NiFpga_Irq_7 = 128,
+    NiFpga_Irq_8 = 256,
+    NiFpga_Irq_9 = 512,
+    NiFpga_Irq_10 = 1024,
+    NiFpga_Irq_11 = 2048,
+    NiFpga_Irq_12 = 4096,
+    NiFpga_Irq_13 = 8192,
+    NiFpga_Irq_14 = 16384,
+    NiFpga_Irq_15 = 32768,
+    NiFpga_Irq_16 = 65536,
+    NiFpga_Irq_17 = 131072,
+    NiFpga_Irq_18 = 262144,
+    NiFpga_Irq_19 = 524288,
+    NiFpga_Irq_20 = 1048576,
+    NiFpga_Irq_21 = 2097152,
+    NiFpga_Irq_22 = 4194304,
+    NiFpga_Irq_23 = 8388608,
+    NiFpga_Irq_24 = 16777216,
+    NiFpga_Irq_25 = 33554432,
+    NiFpga_Irq_26 = 67108864,
+    NiFpga_Irq_27 = 134217728,
+    NiFpga_Irq_28 = 268435456,
+    NiFpga_Irq_29 = 536870912,
+    NiFpga_Irq_30 = 1073741824,
+    NiFpga_Irq_31 = 2147483648,
+}
+pub type NiFpga_IrqContext = *mut ::std::os::raw::c_void;
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum HAL_Counter_Mode {
+    HAL_Counter_kTwoPulse = 0,
+    HAL_Counter_kSemiperiod = 1,
+    HAL_Counter_kPulseLength = 2,
+    HAL_Counter_kExternalDirection = 3,
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct HAL_ControlWord {
-    pub data: u32,
+    field: u32,
 }
-// TODO(Kyle) Check the memory layout of C bitfields on RoboRIO
 impl HAL_ControlWord {
     pub fn enabled(&self) -> bool {
-        self.data & (1 << 31) != 0u32
+        (self.field & (1 << 0)) != 0
     }
     pub fn autonomous(&self) -> bool {
-        self.data & (1 << 30) != 0u32
+        (self.field & (1 << 0)) != 0
     }
     pub fn test(&self) -> bool {
-        self.data & (1 << 29) != 0u32
+        (self.field & (1 << 0)) != 0
     }
     pub fn eStop(&self) -> bool {
-        self.data & (1 << 28) != 0u32
+        (self.field & (1 << 0)) != 0
     }
     pub fn fmsAttached(&self) -> bool {
-        self.data & (1 << 27) != 0u32
+        (self.field & (1 << 0)) != 0
     }
     pub fn dsAttached(&self) -> bool {
-        self.data & (1 << 26) != 0u32
+        (self.field & (1 << 0)) != 0
     }
 }
 impl ::std::default::Default for HAL_ControlWord {
@@ -176,6 +316,23 @@ impl ::std::clone::Clone for HAL_JoystickDescriptor {
 impl ::std::default::Default for HAL_JoystickDescriptor {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum HAL_EncoderIndexingType {
+    HAL_kResetWhileHigh = 0,
+    HAL_kResetWhileLow = 1,
+    HAL_kResetOnFallingEdge = 2,
+    HAL_kResetOnRisingEdge = 3,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum HAL_EncoderEncodingType {
+    HAL_Encoder_k1X = 0,
+    HAL_Encoder_k2X = 1,
+    HAL_Encoder_k4X = 2,
+}
 pub type HAL_InterruptHandlerFunction =
     ::std::option::Option<unsafe extern "C" fn(interruptAssertedMask:
                                                    uint32_t,
@@ -193,10 +350,6 @@ pub enum HAL_SerialPort {
     HAL_SerialPort_USB1 = 2,
     HAL_SerialPort_USB2 = 3,
 }
-#[derive(Copy, Clone)]
-#[repr(u32)]
-#[derive(Debug)]
-pub enum idtype_t { P_ALL = 0, P_PID = 1, P_PGID = 2, }
 pub type __u_char = ::std::os::raw::c_uchar;
 pub type __u_short = ::std::os::raw::c_ushort;
 pub type __u_int = ::std::os::raw::c_uint;
@@ -257,140 +410,7 @@ pub type __qaddr_t = *mut __quad_t;
 pub type __caddr_t = *mut ::std::os::raw::c_char;
 pub type __intptr_t = ::std::os::raw::c_long;
 pub type __socklen_t = ::std::os::raw::c_uint;
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct wait {
-    pub _bindgen_data_: [u32; 1usize],
-}
-impl wait {
-    pub unsafe fn w_status(&mut self) -> *mut ::std::os::raw::c_int {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-    pub unsafe fn __wait_terminated(&mut self) -> *mut Struct_Unnamed1 {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-    pub unsafe fn __wait_stopped(&mut self) -> *mut Struct_Unnamed2 {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-}
-impl ::std::default::Default for wait {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct Struct_Unnamed1 {
-    pub _bindgen_bitfield_1_: ::std::os::raw::c_uint,
-}
-impl ::std::default::Default for Struct_Unnamed1 {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct Struct_Unnamed2 {
-    pub _bindgen_bitfield_1_: ::std::os::raw::c_uint,
-}
-impl ::std::default::Default for Struct_Unnamed2 {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct __WAIT_STATUS {
-    pub _bindgen_data_: [u64; 1usize],
-}
-impl __WAIT_STATUS {
-    pub unsafe fn __uptr(&mut self) -> *mut *mut wait {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-    pub unsafe fn __iptr(&mut self) -> *mut *mut ::std::os::raw::c_int {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-}
-impl ::std::default::Default for __WAIT_STATUS {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct div_t {
-    pub quot: ::std::os::raw::c_int,
-    pub rem: ::std::os::raw::c_int,
-}
-impl ::std::default::Default for div_t {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct ldiv_t {
-    pub quot: ::std::os::raw::c_long,
-    pub rem: ::std::os::raw::c_long,
-}
-impl ::std::default::Default for ldiv_t {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct lldiv_t {
-    pub quot: ::std::os::raw::c_longlong,
-    pub rem: ::std::os::raw::c_longlong,
-}
-impl ::std::default::Default for lldiv_t {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-pub type u_char = __u_char;
-pub type u_short = __u_short;
-pub type u_int = __u_int;
-pub type u_long = __u_long;
-pub type quad_t = __quad_t;
-pub type u_quad_t = __u_quad_t;
-pub type fsid_t = __fsid_t;
-pub type loff_t = __loff_t;
-pub type ino_t = __ino_t;
-pub type dev_t = __dev_t;
-pub type gid_t = __gid_t;
-pub type mode_t = __mode_t;
-pub type nlink_t = __nlink_t;
-pub type uid_t = __uid_t;
-pub type off_t = __off_t;
-pub type pid_t = __pid_t;
-pub type id_t = __id_t;
-pub type ssize_t = isize;
-pub type daddr_t = __daddr_t;
-pub type caddr_t = __caddr_t;
-pub type key_t = __key_t;
-pub type clock_t = __clock_t;
 pub type time_t = __time_t;
-pub type clockid_t = __clockid_t;
-pub type timer_t = __timer_t;
-pub type ulong = ::std::os::raw::c_ulong;
-pub type ushort = ::std::os::raw::c_ushort;
-pub type uint_ = ::std::os::raw::c_uint;
-pub type u_int8_t = ::std::os::raw::c_uchar;
-pub type u_int16_t = ::std::os::raw::c_ushort;
-pub type u_int32_t = ::std::os::raw::c_uint;
-pub type u_int64_t = ::std::os::raw::c_ulong;
-pub type register_t = ::std::os::raw::c_long;
-pub type __sig_atomic_t = ::std::os::raw::c_int;
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct __sigset_t {
-    pub __val: [::std::os::raw::c_ulong; 16usize],
-}
-impl ::std::default::Default for __sigset_t {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-pub type sigset_t = __sigset_t;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -401,32 +421,84 @@ pub struct timespec {
 impl ::std::default::Default for timespec {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
+pub type pid_t = __pid_t;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct timeval {
-    pub tv_sec: __time_t,
-    pub tv_usec: __suseconds_t,
+pub struct sched_param {
+    pub __sched_priority: ::std::os::raw::c_int,
 }
-impl ::std::default::Default for timeval {
+impl ::std::default::Default for sched_param {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
-pub type suseconds_t = __suseconds_t;
-pub type __fd_mask = ::std::os::raw::c_long;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct fd_set {
-    pub __fds_bits: [__fd_mask; 16usize],
+pub struct __sched_param {
+    pub __sched_priority: ::std::os::raw::c_int,
 }
-impl ::std::default::Default for fd_set {
+impl ::std::default::Default for __sched_param {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
-pub type fd_mask = __fd_mask;
-pub type blksize_t = __blksize_t;
-pub type blkcnt_t = __blkcnt_t;
-pub type fsblkcnt_t = __fsblkcnt_t;
-pub type fsfilcnt_t = __fsfilcnt_t;
+pub type __cpu_mask = ::std::os::raw::c_ulong;
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct cpu_set_t {
+    pub __bits: [__cpu_mask; 16usize],
+}
+impl ::std::default::Default for cpu_set_t {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub type clock_t = __clock_t;
+pub type clockid_t = __clockid_t;
+pub type timer_t = __timer_t;
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct tm {
+    pub tm_sec: ::std::os::raw::c_int,
+    pub tm_min: ::std::os::raw::c_int,
+    pub tm_hour: ::std::os::raw::c_int,
+    pub tm_mday: ::std::os::raw::c_int,
+    pub tm_mon: ::std::os::raw::c_int,
+    pub tm_year: ::std::os::raw::c_int,
+    pub tm_wday: ::std::os::raw::c_int,
+    pub tm_yday: ::std::os::raw::c_int,
+    pub tm_isdst: ::std::os::raw::c_int,
+    pub tm_gmtoff: ::std::os::raw::c_long,
+    pub tm_zone: *const ::std::os::raw::c_char,
+}
+impl ::std::default::Default for tm {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct itimerspec {
+    pub it_interval: timespec,
+    pub it_value: timespec,
+}
+impl ::std::default::Default for itimerspec {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub enum sigevent { }
+pub enum __locale_data { }
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __locale_struct {
+    pub __locales: [*mut __locale_data; 13usize],
+    pub __ctype_b: *const ::std::os::raw::c_ushort,
+    pub __ctype_tolower: *const ::std::os::raw::c_int,
+    pub __ctype_toupper: *const ::std::os::raw::c_int,
+    pub __names: [*const ::std::os::raw::c_char; 13usize],
+}
+impl ::std::default::Default for __locale_struct {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub type __locale_t = *mut __locale_struct;
+pub type locale_t = __locale_t;
 pub type pthread_t = ::std::os::raw::c_ulong;
 #[repr(C)]
 #[derive(Copy)]
@@ -528,7 +600,7 @@ pub struct pthread_cond_t {
     pub _bindgen_data_: [u64; 6usize],
 }
 impl pthread_cond_t {
-    pub unsafe fn __data(&mut self) -> *mut Struct_Unnamed3 {
+    pub unsafe fn __data(&mut self) -> *mut Struct_Unnamed1 {
         let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
         ::std::mem::transmute(raw.offset(0))
     }
@@ -551,7 +623,7 @@ impl ::std::default::Default for pthread_cond_t {
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed3 {
+pub struct Struct_Unnamed1 {
     pub __lock: ::std::os::raw::c_int,
     pub __futex: ::std::os::raw::c_uint,
     pub __total_seq: ::std::os::raw::c_ulonglong,
@@ -561,7 +633,7 @@ pub struct Struct_Unnamed3 {
     pub __nwaiters: ::std::os::raw::c_uint,
     pub __broadcast_seq: ::std::os::raw::c_uint,
 }
-impl ::std::default::Default for Struct_Unnamed3 {
+impl ::std::default::Default for Struct_Unnamed1 {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
@@ -591,7 +663,7 @@ pub struct pthread_rwlock_t {
     pub _bindgen_data_: [u64; 7usize],
 }
 impl pthread_rwlock_t {
-    pub unsafe fn __data(&mut self) -> *mut Struct_Unnamed4 {
+    pub unsafe fn __data(&mut self) -> *mut Struct_Unnamed2 {
         let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
         ::std::mem::transmute(raw.offset(0))
     }
@@ -614,7 +686,7 @@ impl ::std::default::Default for pthread_rwlock_t {
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
-pub struct Struct_Unnamed4 {
+pub struct Struct_Unnamed2 {
     pub __lock: ::std::os::raw::c_int,
     pub __nr_readers: ::std::os::raw::c_uint,
     pub __readers_wakeup: ::std::os::raw::c_uint,
@@ -628,7 +700,7 @@ pub struct Struct_Unnamed4 {
     pub __pad2: ::std::os::raw::c_ulong,
     pub __flags: ::std::os::raw::c_uint,
 }
-impl ::std::default::Default for Struct_Unnamed4 {
+impl ::std::default::Default for Struct_Unnamed2 {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
@@ -690,6 +762,301 @@ impl pthread_barrierattr_t {
 impl ::std::default::Default for pthread_barrierattr_t {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
+pub type __jmp_buf = [::std::os::raw::c_long; 8usize];
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed3 {
+    PTHREAD_CREATE_JOINABLE = 0,
+    PTHREAD_CREATE_DETACHED = 1,
+}
+pub const PTHREAD_MUTEX_NORMAL: Enum_Unnamed4 =
+    Enum_Unnamed4::PTHREAD_MUTEX_TIMED_NP;
+pub const PTHREAD_MUTEX_RECURSIVE: Enum_Unnamed4 =
+    Enum_Unnamed4::PTHREAD_MUTEX_RECURSIVE_NP;
+pub const PTHREAD_MUTEX_ERRORCHECK: Enum_Unnamed4 =
+    Enum_Unnamed4::PTHREAD_MUTEX_ERRORCHECK_NP;
+pub const PTHREAD_MUTEX_DEFAULT: Enum_Unnamed4 =
+    Enum_Unnamed4::PTHREAD_MUTEX_TIMED_NP;
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed4 {
+    PTHREAD_MUTEX_TIMED_NP = 0,
+    PTHREAD_MUTEX_RECURSIVE_NP = 1,
+    PTHREAD_MUTEX_ERRORCHECK_NP = 2,
+    PTHREAD_MUTEX_ADAPTIVE_NP = 3,
+}
+pub const PTHREAD_MUTEX_STALLED_NP: Enum_Unnamed5 =
+    Enum_Unnamed5::PTHREAD_MUTEX_STALLED;
+pub const PTHREAD_MUTEX_ROBUST_NP: Enum_Unnamed5 =
+    Enum_Unnamed5::PTHREAD_MUTEX_ROBUST;
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed5 {
+    PTHREAD_MUTEX_STALLED = 0,
+    PTHREAD_MUTEX_ROBUST = 1,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed6 {
+    PTHREAD_PRIO_NONE = 0,
+    PTHREAD_PRIO_INHERIT = 1,
+    PTHREAD_PRIO_PROTECT = 2,
+}
+pub const PTHREAD_RWLOCK_DEFAULT_NP: Enum_Unnamed7 =
+    Enum_Unnamed7::PTHREAD_RWLOCK_PREFER_READER_NP;
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed7 {
+    PTHREAD_RWLOCK_PREFER_READER_NP = 0,
+    PTHREAD_RWLOCK_PREFER_WRITER_NP = 1,
+    PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP = 2,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed8 {
+    PTHREAD_INHERIT_SCHED = 0,
+    PTHREAD_EXPLICIT_SCHED = 1,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed9 {
+    PTHREAD_SCOPE_SYSTEM = 0,
+    PTHREAD_SCOPE_PROCESS = 1,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed10 {
+    PTHREAD_PROCESS_PRIVATE = 0,
+    PTHREAD_PROCESS_SHARED = 1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct _pthread_cleanup_buffer {
+    pub __routine: ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                                  *mut ::std::os::raw::c_void)>,
+    pub __arg: *mut ::std::os::raw::c_void,
+    pub __canceltype: ::std::os::raw::c_int,
+    pub __prev: *mut _pthread_cleanup_buffer,
+}
+impl ::std::default::Default for _pthread_cleanup_buffer {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed11 {
+    PTHREAD_CANCEL_ENABLE = 0,
+    PTHREAD_CANCEL_DISABLE = 1,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum Enum_Unnamed12 {
+    PTHREAD_CANCEL_DEFERRED = 0,
+    PTHREAD_CANCEL_ASYNCHRONOUS = 1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __pthread_unwind_buf_t {
+    pub __cancel_jmp_buf: [Struct_Unnamed13; 1usize],
+    pub __pad: [*mut ::std::os::raw::c_void; 4usize],
+}
+impl ::std::default::Default for __pthread_unwind_buf_t {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct Struct_Unnamed13 {
+    pub __cancel_jmp_buf: __jmp_buf,
+    pub __mask_was_saved: ::std::os::raw::c_int,
+}
+impl ::std::default::Default for Struct_Unnamed13 {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __pthread_cleanup_frame {
+    pub __cancel_routine: ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                                         *mut ::std::os::raw::c_void)>,
+    pub __cancel_arg: *mut ::std::os::raw::c_void,
+    pub __do_it: ::std::os::raw::c_int,
+    pub __cancel_type: ::std::os::raw::c_int,
+}
+impl ::std::default::Default for __pthread_cleanup_frame {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub enum __jmp_buf_tag { }
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum idtype_t { P_ALL = 0, P_PID = 1, P_PGID = 2, }
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct wait {
+    pub _bindgen_data_: [u32; 1usize],
+}
+impl wait {
+    pub unsafe fn w_status(&mut self) -> *mut ::std::os::raw::c_int {
+        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
+        ::std::mem::transmute(raw.offset(0))
+    }
+    pub unsafe fn __wait_terminated(&mut self) -> *mut Struct_Unnamed14 {
+        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
+        ::std::mem::transmute(raw.offset(0))
+    }
+    pub unsafe fn __wait_stopped(&mut self) -> *mut Struct_Unnamed15 {
+        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
+        ::std::mem::transmute(raw.offset(0))
+    }
+}
+impl ::std::default::Default for wait {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct Struct_Unnamed14 {
+    pub _bindgen_bitfield_1_: ::std::os::raw::c_uint,
+}
+impl ::std::default::Default for Struct_Unnamed14 {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct Struct_Unnamed15 {
+    pub _bindgen_bitfield_1_: ::std::os::raw::c_uint,
+}
+impl ::std::default::Default for Struct_Unnamed15 {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __WAIT_STATUS {
+    pub _bindgen_data_: [u64; 1usize],
+}
+impl __WAIT_STATUS {
+    pub unsafe fn __uptr(&mut self) -> *mut *mut wait {
+        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
+        ::std::mem::transmute(raw.offset(0))
+    }
+    pub unsafe fn __iptr(&mut self) -> *mut *mut ::std::os::raw::c_int {
+        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
+        ::std::mem::transmute(raw.offset(0))
+    }
+}
+impl ::std::default::Default for __WAIT_STATUS {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct div_t {
+    pub quot: ::std::os::raw::c_int,
+    pub rem: ::std::os::raw::c_int,
+}
+impl ::std::default::Default for div_t {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct ldiv_t {
+    pub quot: ::std::os::raw::c_long,
+    pub rem: ::std::os::raw::c_long,
+}
+impl ::std::default::Default for ldiv_t {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct lldiv_t {
+    pub quot: ::std::os::raw::c_longlong,
+    pub rem: ::std::os::raw::c_longlong,
+}
+impl ::std::default::Default for lldiv_t {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub type u_char = __u_char;
+pub type u_short = __u_short;
+pub type u_int = __u_int;
+pub type u_long = __u_long;
+pub type quad_t = __quad_t;
+pub type u_quad_t = __u_quad_t;
+pub type fsid_t = __fsid_t;
+pub type loff_t = __loff_t;
+pub type ino_t = __ino_t;
+pub type dev_t = __dev_t;
+pub type gid_t = __gid_t;
+pub type mode_t = __mode_t;
+pub type nlink_t = __nlink_t;
+pub type uid_t = __uid_t;
+pub type off_t = __off_t;
+pub type id_t = __id_t;
+pub type ssize_t = isize;
+pub type daddr_t = __daddr_t;
+pub type caddr_t = __caddr_t;
+pub type key_t = __key_t;
+pub type ulong = ::std::os::raw::c_ulong;
+pub type ushort = ::std::os::raw::c_ushort;
+pub type uint_ = ::std::os::raw::c_uint;
+pub type u_int8_t = ::std::os::raw::c_uchar;
+pub type u_int16_t = ::std::os::raw::c_ushort;
+pub type u_int32_t = ::std::os::raw::c_uint;
+pub type u_int64_t = ::std::os::raw::c_ulong;
+pub type register_t = ::std::os::raw::c_long;
+pub type __sig_atomic_t = ::std::os::raw::c_int;
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct __sigset_t {
+    pub __val: [::std::os::raw::c_ulong; 16usize],
+}
+impl ::std::default::Default for __sigset_t {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub type sigset_t = __sigset_t;
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct timeval {
+    pub tv_sec: __time_t,
+    pub tv_usec: __suseconds_t,
+}
+impl ::std::default::Default for timeval {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub type suseconds_t = __suseconds_t;
+pub type __fd_mask = ::std::os::raw::c_long;
+#[repr(C)]
+#[derive(Copy, Clone)]
+#[derive(Debug)]
+pub struct fd_set {
+    pub __fds_bits: [__fd_mask; 16usize],
+}
+impl ::std::default::Default for fd_set {
+    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+}
+pub type fd_mask = __fd_mask;
+pub type blksize_t = __blksize_t;
+pub type blkcnt_t = __blkcnt_t;
+pub type fsblkcnt_t = __fsblkcnt_t;
+pub type fsfilcnt_t = __fsfilcnt_t;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -727,7 +1094,133 @@ pub type __compar_fn_t =
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
+pub enum tResourceType {
+    kResourceType_Controller = 0,
+    kResourceType_Module = 1,
+    kResourceType_Language = 2,
+    kResourceType_CANPlugin = 3,
+    kResourceType_Accelerometer = 4,
+    kResourceType_ADXL345 = 5,
+    kResourceType_AnalogChannel = 6,
+    kResourceType_AnalogTrigger = 7,
+    kResourceType_AnalogTriggerOutput = 8,
+    kResourceType_CANJaguar = 9,
+    kResourceType_Compressor = 10,
+    kResourceType_Counter = 11,
+    kResourceType_Dashboard = 12,
+    kResourceType_DigitalInput = 13,
+    kResourceType_DigitalOutput = 14,
+    kResourceType_DriverStationCIO = 15,
+    kResourceType_DriverStationEIO = 16,
+    kResourceType_DriverStationLCD = 17,
+    kResourceType_Encoder = 18,
+    kResourceType_GearTooth = 19,
+    kResourceType_Gyro = 20,
+    kResourceType_I2C = 21,
+    kResourceType_Framework = 22,
+    kResourceType_Jaguar = 23,
+    kResourceType_Joystick = 24,
+    kResourceType_Kinect = 25,
+    kResourceType_KinectStick = 26,
+    kResourceType_PIDController = 27,
+    kResourceType_Preferences = 28,
+    kResourceType_PWM = 29,
+    kResourceType_Relay = 30,
+    kResourceType_RobotDrive = 31,
+    kResourceType_SerialPort = 32,
+    kResourceType_Servo = 33,
+    kResourceType_Solenoid = 34,
+    kResourceType_SPI = 35,
+    kResourceType_Task = 36,
+    kResourceType_Ultrasonic = 37,
+    kResourceType_Victor = 38,
+    kResourceType_Button = 39,
+    kResourceType_Command = 40,
+    kResourceType_AxisCamera = 41,
+    kResourceType_PCVideoServer = 42,
+    kResourceType_SmartDashboard = 43,
+    kResourceType_Talon = 44,
+    kResourceType_HiTechnicColorSensor = 45,
+    kResourceType_HiTechnicAccel = 46,
+    kResourceType_HiTechnicCompass = 47,
+    kResourceType_SRF08 = 48,
+    kResourceType_AnalogOutput = 49,
+    kResourceType_VictorSP = 50,
+    kResourceType_TalonSRX = 51,
+    kResourceType_CANTalonSRX = 52,
+    kResourceType_ADXL362 = 53,
+    kResourceType_ADXRS450 = 54,
+    kResourceType_RevSPARK = 55,
+    kResourceType_MindsensorsSD540 = 56,
+    kResourceType_DigitalFilter = 57,
+    kResourceType_ADIS16448 = 58,
+    kResourceType_PDP = 59,
+    kResourceType_PCM = 60,
+    kResourceType_PigeonIMU = 61,
+}
+pub const kCANPlugin_BlackJagBridge: tInstances =
+    tInstances::kLanguage_LabVIEW;
+pub const kCANPlugin_2CAN: tInstances = tInstances::kLanguage_CPlusPlus;
+pub const kFramework_Iterative: tInstances = tInstances::kLanguage_LabVIEW;
+pub const kFramework_Simple: tInstances = tInstances::kLanguage_CPlusPlus;
+pub const kFramework_CommandControl: tInstances = tInstances::kLanguage_Java;
+pub const kRobotDrive_ArcadeStandard: tInstances =
+    tInstances::kLanguage_LabVIEW;
+pub const kRobotDrive_ArcadeButtonSpin: tInstances =
+    tInstances::kLanguage_CPlusPlus;
+pub const kRobotDrive_ArcadeRatioCurve: tInstances =
+    tInstances::kLanguage_Java;
+pub const kRobotDrive_Tank: tInstances = tInstances::kLanguage_Python;
+pub const kRobotDrive_MecanumPolar: tInstances = tInstances::kLanguage_DotNet;
+pub const kDriverStationCIO_Analog: tInstances =
+    tInstances::kLanguage_LabVIEW;
+pub const kDriverStationCIO_DigitalIn: tInstances =
+    tInstances::kLanguage_CPlusPlus;
+pub const kDriverStationCIO_DigitalOut: tInstances =
+    tInstances::kLanguage_Java;
+pub const kDriverStationEIO_Acceleration: tInstances =
+    tInstances::kLanguage_LabVIEW;
+pub const kDriverStationEIO_AnalogIn: tInstances =
+    tInstances::kLanguage_CPlusPlus;
+pub const kDriverStationEIO_AnalogOut: tInstances =
+    tInstances::kLanguage_Java;
+pub const kDriverStationEIO_Button: tInstances = tInstances::kLanguage_Python;
+pub const kDriverStationEIO_LED: tInstances = tInstances::kLanguage_DotNet;
+pub const kDriverStationEIO_DigitalIn: tInstances =
+    tInstances::kRobotDrive_MecanumCartesian;
+pub const kADXL345_SPI: tInstances = tInstances::kLanguage_LabVIEW;
+pub const kADXL345_I2C: tInstances = tInstances::kLanguage_CPlusPlus;
+pub const kCommand_Scheduler: tInstances = tInstances::kLanguage_LabVIEW;
+pub const kSmartDashboard_Instance: tInstances =
+    tInstances::kLanguage_LabVIEW;
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
+pub enum tInstances {
+    kLanguage_LabVIEW = 1,
+    kLanguage_CPlusPlus = 2,
+    kLanguage_Java = 3,
+    kLanguage_Python = 4,
+    kLanguage_DotNet = 5,
+    kRobotDrive_MecanumCartesian = 6,
+    kDriverStationEIO_DigitalOut = 7,
+    kDriverStationEIO_FixedDigitalOut = 8,
+    kDriverStationEIO_PWM = 9,
+    kDriverStationEIO_Encoder = 10,
+    kDriverStationEIO_TouchSlider = 11,
+}
+#[derive(Copy, Clone)]
+#[repr(u32)]
+#[derive(Debug)]
 pub enum HAL_RuntimeType { HAL_Athena = 0, HAL_Mock = 1, }
+extern "C" {
+    pub static mut __tzname: [*mut ::std::os::raw::c_char; 2usize];
+    pub static mut __daylight: ::std::os::raw::c_int;
+    pub static mut __timezone: ::std::os::raw::c_long;
+    pub static mut tzname: [*mut ::std::os::raw::c_char; 2usize];
+    pub static mut daylight: ::std::os::raw::c_int;
+    pub static mut timezone: ::std::os::raw::c_long;
+}
 extern "C" {
     pub fn HAL_SetAccelerometerActive(active: HAL_Bool);
     pub fn HAL_SetAccelerometerRange(range: HAL_AccelerometerRange);
@@ -855,6 +1348,515 @@ extern "C" {
                                           HAL_AnalogTriggerHandle,
                                       type_: HAL_AnalogTriggerType,
                                       status: *mut int32_t) -> HAL_Bool;
+    pub fn FRC_NetworkCommunication_CANSessionMux_sendMessage(messageID:
+                                                                  uint32_t,
+                                                              data:
+                                                                  *const uint8_t,
+                                                              dataSize:
+                                                                  uint8_t,
+                                                              periodMs:
+                                                                  int32_t,
+                                                              status:
+                                                                  *mut int32_t);
+    pub fn FRC_NetworkCommunication_CANSessionMux_receiveMessage(messageID:
+                                                                     *mut uint32_t,
+                                                                 messageIDMask:
+                                                                     uint32_t,
+                                                                 data:
+                                                                     *mut uint8_t,
+                                                                 dataSize:
+                                                                     *mut uint8_t,
+                                                                 timeStamp:
+                                                                     *mut uint32_t,
+                                                                 status:
+                                                                     *mut int32_t);
+    pub fn FRC_NetworkCommunication_CANSessionMux_openStreamSession(sessionHandle:
+                                                                        *mut uint32_t,
+                                                                    messageID:
+                                                                        uint32_t,
+                                                                    messageIDMask:
+                                                                        uint32_t,
+                                                                    maxMessages:
+                                                                        uint32_t,
+                                                                    status:
+                                                                        *mut int32_t);
+    pub fn FRC_NetworkCommunication_CANSessionMux_closeStreamSession(sessionHandle:
+                                                                         uint32_t);
+    pub fn FRC_NetworkCommunication_CANSessionMux_readStreamSession(sessionHandle:
+                                                                        uint32_t,
+                                                                    messages:
+                                                                        *mut tCANStreamMessage,
+                                                                    messagesToRead:
+                                                                        uint32_t,
+                                                                    messagesRead:
+                                                                        *mut uint32_t,
+                                                                    status:
+                                                                        *mut int32_t);
+    pub fn FRC_NetworkCommunication_CANSessionMux_getCANStatus(percentBusUtilization:
+                                                                   *mut f32,
+                                                               busOffCount:
+                                                                   *mut uint32_t,
+                                                               txFullCount:
+                                                                   *mut uint32_t,
+                                                               receiveErrorCount:
+                                                                   *mut uint32_t,
+                                                               transmitErrorCount:
+                                                                   *mut uint32_t,
+                                                               status:
+                                                                   *mut int32_t);
+    pub fn canTxSend(arbID: uint32_t, length: uint8_t, period: int32_t);
+    pub fn canTxPackInt8(arbID: uint32_t, offset: uint8_t, value: uint8_t);
+    pub fn canTxPackInt16(arbID: uint32_t, offset: uint8_t, value: uint16_t);
+    pub fn canTxPackInt32(arbID: uint32_t, offset: uint8_t, value: uint32_t);
+    pub fn canTxPackFXP16(arbID: uint32_t, offset: uint8_t, value: f64);
+    pub fn canTxPackFXP32(arbID: uint32_t, offset: uint8_t, value: f64);
+    pub fn canTxUnpackInt8(arbID: uint32_t, offset: uint8_t) -> uint8_t;
+    pub fn canTxUnpackInt32(arbID: uint32_t, offset: uint8_t) -> uint32_t;
+    pub fn canTxUnpackInt16(arbID: uint32_t, offset: uint8_t) -> uint16_t;
+    pub fn canTxUnpackFXP16(arbID: uint32_t, offset: uint8_t) -> f64;
+    pub fn canTxUnpackFXP32(arbID: uint32_t, offset: uint8_t) -> f64;
+    pub fn canRxReceive(arbID: uint32_t) -> HAL_Bool;
+    pub fn canRxUnpackInt8(arbID: uint32_t, offset: uint8_t) -> uint8_t;
+    pub fn canRxUnpackInt16(arbID: uint32_t, offset: uint8_t) -> uint16_t;
+    pub fn canRxUnpackInt32(arbID: uint32_t, offset: uint8_t) -> uint32_t;
+    pub fn canRxUnpackFXP16(arbID: uint32_t, offset: uint8_t) -> f64;
+    pub fn canRxUnpackFXP32(arbID: uint32_t, offset: uint8_t) -> f64;
+    pub fn NiFpga_Initialize() -> NiFpga_Status;
+    pub fn NiFpga_Finalize() -> NiFpga_Status;
+    pub fn NiFpga_Open(bitfile: *const ::std::os::raw::c_char,
+                       signature: *const ::std::os::raw::c_char,
+                       resource: *const ::std::os::raw::c_char,
+                       attribute: uint32_t, session: *mut NiFpga_Session)
+     -> NiFpga_Status;
+    pub fn NiFpga_Close(session: NiFpga_Session, attribute: uint32_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_Run(session: NiFpga_Session, attribute: uint32_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_Abort(session: NiFpga_Session) -> NiFpga_Status;
+    pub fn NiFpga_Reset(session: NiFpga_Session) -> NiFpga_Status;
+    pub fn NiFpga_Download(session: NiFpga_Session) -> NiFpga_Status;
+    pub fn NiFpga_ReadBool(session: NiFpga_Session, indicator: uint32_t,
+                           value: *mut NiFpga_Bool) -> NiFpga_Status;
+    pub fn NiFpga_ReadI8(session: NiFpga_Session, indicator: uint32_t,
+                         value: *mut int8_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadU8(session: NiFpga_Session, indicator: uint32_t,
+                         value: *mut uint8_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadI16(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut int16_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadU16(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut uint16_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadI32(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut int32_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadU32(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut uint32_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadI64(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut int64_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadU64(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut uint64_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadSgl(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut f32) -> NiFpga_Status;
+    pub fn NiFpga_ReadDbl(session: NiFpga_Session, indicator: uint32_t,
+                          value: *mut f64) -> NiFpga_Status;
+    pub fn NiFpga_WriteBool(session: NiFpga_Session, control: uint32_t,
+                            value: NiFpga_Bool) -> NiFpga_Status;
+    pub fn NiFpga_WriteI8(session: NiFpga_Session, control: uint32_t,
+                          value: int8_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteU8(session: NiFpga_Session, control: uint32_t,
+                          value: uint8_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteI16(session: NiFpga_Session, control: uint32_t,
+                           value: int16_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteU16(session: NiFpga_Session, control: uint32_t,
+                           value: uint16_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteI32(session: NiFpga_Session, control: uint32_t,
+                           value: int32_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteU32(session: NiFpga_Session, control: uint32_t,
+                           value: uint32_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteI64(session: NiFpga_Session, control: uint32_t,
+                           value: int64_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteU64(session: NiFpga_Session, control: uint32_t,
+                           value: uint64_t) -> NiFpga_Status;
+    pub fn NiFpga_WriteSgl(session: NiFpga_Session, control: uint32_t,
+                           value: f32) -> NiFpga_Status;
+    pub fn NiFpga_WriteDbl(session: NiFpga_Session, control: uint32_t,
+                           value: f64) -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayBool(session: NiFpga_Session, indicator: uint32_t,
+                                array: *mut NiFpga_Bool, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayI8(session: NiFpga_Session, indicator: uint32_t,
+                              array: *mut int8_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayU8(session: NiFpga_Session, indicator: uint32_t,
+                              array: *mut uint8_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayI16(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut int16_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayU16(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut uint16_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayI32(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut int32_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayU32(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut uint32_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayI64(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut int64_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayU64(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut uint64_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArraySgl(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut f32, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadArrayDbl(session: NiFpga_Session, indicator: uint32_t,
+                               array: *mut f64, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayBool(session: NiFpga_Session, control: uint32_t,
+                                 array: *const NiFpga_Bool, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayI8(session: NiFpga_Session, control: uint32_t,
+                               array: *const int8_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayU8(session: NiFpga_Session, control: uint32_t,
+                               array: *const uint8_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayI16(session: NiFpga_Session, control: uint32_t,
+                                array: *const int16_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayU16(session: NiFpga_Session, control: uint32_t,
+                                array: *const uint16_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayI32(session: NiFpga_Session, control: uint32_t,
+                                array: *const int32_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayU32(session: NiFpga_Session, control: uint32_t,
+                                array: *const uint32_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayI64(session: NiFpga_Session, control: uint32_t,
+                                array: *const int64_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayU64(session: NiFpga_Session, control: uint32_t,
+                                array: *const uint64_t, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArraySgl(session: NiFpga_Session, control: uint32_t,
+                                array: *const f32, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteArrayDbl(session: NiFpga_Session, control: uint32_t,
+                                array: *const f64, size: size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReserveIrqContext(session: NiFpga_Session,
+                                    context: *mut NiFpga_IrqContext)
+     -> NiFpga_Status;
+    pub fn NiFpga_UnreserveIrqContext(session: NiFpga_Session,
+                                      context: NiFpga_IrqContext)
+     -> NiFpga_Status;
+    pub fn NiFpga_WaitOnIrqs(session: NiFpga_Session,
+                             context: NiFpga_IrqContext, irqs: uint32_t,
+                             timeout: uint32_t, irqsAsserted: *mut uint32_t,
+                             timedOut: *mut NiFpga_Bool) -> NiFpga_Status;
+    pub fn NiFpga_AcknowledgeIrqs(session: NiFpga_Session, irqs: uint32_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ConfigureFifo(session: NiFpga_Session, fifo: uint32_t,
+                                depth: size_t) -> NiFpga_Status;
+    pub fn NiFpga_ConfigureFifo2(session: NiFpga_Session, fifo: uint32_t,
+                                 requestedDepth: size_t,
+                                 actualDepth: *mut size_t) -> NiFpga_Status;
+    pub fn NiFpga_StartFifo(session: NiFpga_Session, fifo: uint32_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_StopFifo(session: NiFpga_Session, fifo: uint32_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoBool(session: NiFpga_Session, fifo: uint32_t,
+                               data: *mut NiFpga_Bool,
+                               numberOfElements: size_t, timeout: uint32_t,
+                               elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoI8(session: NiFpga_Session, fifo: uint32_t,
+                             data: *mut int8_t, numberOfElements: size_t,
+                             timeout: uint32_t,
+                             elementsRemaining: *mut size_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoU8(session: NiFpga_Session, fifo: uint32_t,
+                             data: *mut uint8_t, numberOfElements: size_t,
+                             timeout: uint32_t,
+                             elementsRemaining: *mut size_t) -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoI16(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut int16_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoU16(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut uint16_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoI32(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut int32_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoU32(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut uint32_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoI64(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut int64_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoU64(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut uint64_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoSgl(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut f32, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReadFifoDbl(session: NiFpga_Session, fifo: uint32_t,
+                              data: *mut f64, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoBool(session: NiFpga_Session, fifo: uint32_t,
+                                data: *const NiFpga_Bool,
+                                numberOfElements: size_t, timeout: uint32_t,
+                                emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoI8(session: NiFpga_Session, fifo: uint32_t,
+                              data: *const int8_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoU8(session: NiFpga_Session, fifo: uint32_t,
+                              data: *const uint8_t, numberOfElements: size_t,
+                              timeout: uint32_t,
+                              emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoI16(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const int16_t, numberOfElements: size_t,
+                               timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoU16(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const uint16_t,
+                               numberOfElements: size_t, timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoI32(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const int32_t, numberOfElements: size_t,
+                               timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoU32(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const uint32_t,
+                               numberOfElements: size_t, timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoI64(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const int64_t, numberOfElements: size_t,
+                               timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoU64(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const uint64_t,
+                               numberOfElements: size_t, timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoSgl(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const f32, numberOfElements: size_t,
+                               timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_WriteFifoDbl(session: NiFpga_Session, fifo: uint32_t,
+                               data: *const f64, numberOfElements: size_t,
+                               timeout: uint32_t,
+                               emptyElementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsBool(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut NiFpga_Bool,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsI8(session: NiFpga_Session,
+                                            fifo: uint32_t,
+                                            elements: *mut *mut int8_t,
+                                            elementsRequested: size_t,
+                                            timeout: uint32_t,
+                                            elementsAcquired: *mut size_t,
+                                            elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsU8(session: NiFpga_Session,
+                                            fifo: uint32_t,
+                                            elements: *mut *mut uint8_t,
+                                            elementsRequested: size_t,
+                                            timeout: uint32_t,
+                                            elementsAcquired: *mut size_t,
+                                            elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsI16(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut int16_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsU16(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut uint16_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsI32(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut int32_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsU32(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut uint32_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsI64(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut int64_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsU64(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut uint64_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsSgl(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut f32,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoReadElementsDbl(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut f64,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsBool(session: NiFpga_Session,
+                                               fifo: uint32_t,
+                                               elements:
+                                                   *mut *mut NiFpga_Bool,
+                                               elementsRequested: size_t,
+                                               timeout: uint32_t,
+                                               elementsAcquired: *mut size_t,
+                                               elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsI8(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut int8_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsU8(session: NiFpga_Session,
+                                             fifo: uint32_t,
+                                             elements: *mut *mut uint8_t,
+                                             elementsRequested: size_t,
+                                             timeout: uint32_t,
+                                             elementsAcquired: *mut size_t,
+                                             elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsI16(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut int16_t,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsU16(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut uint16_t,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsI32(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut int32_t,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsU32(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut uint32_t,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsI64(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut int64_t,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsU64(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut uint64_t,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsSgl(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut f32,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_AcquireFifoWriteElementsDbl(session: NiFpga_Session,
+                                              fifo: uint32_t,
+                                              elements: *mut *mut f64,
+                                              elementsRequested: size_t,
+                                              timeout: uint32_t,
+                                              elementsAcquired: *mut size_t,
+                                              elementsRemaining: *mut size_t)
+     -> NiFpga_Status;
+    pub fn NiFpga_ReleaseFifoElements(session: NiFpga_Session, fifo: uint32_t,
+                                      elements: size_t) -> NiFpga_Status;
+    pub fn NiFpga_GetPeerToPeerFifoEndpoint(session: NiFpga_Session,
+                                            fifo: uint32_t,
+                                            endpoint: *mut uint32_t)
+     -> NiFpga_Status;
     pub fn HAL_InitializeCompressor(module: int32_t, status: *mut int32_t)
      -> HAL_CompressorHandle;
     pub fn HAL_CheckCompressorModule(module: int32_t) -> HAL_Bool;
@@ -1029,6 +2031,62 @@ extern "C" {
     pub fn HAL_ObserveUserProgramAutonomous();
     pub fn HAL_ObserveUserProgramTeleop();
     pub fn HAL_ObserveUserProgramTest();
+    pub fn HAL_InitializeEncoder(digitalSourceHandleA: HAL_Handle,
+                                 analogTriggerTypeA: HAL_AnalogTriggerType,
+                                 digitalSourceHandleB: HAL_Handle,
+                                 analogTriggerTypeB: HAL_AnalogTriggerType,
+                                 reverseDirection: HAL_Bool,
+                                 encodingType: HAL_EncoderEncodingType,
+                                 status: *mut int32_t) -> HAL_EncoderHandle;
+    pub fn HAL_FreeEncoder(encoderHandle: HAL_EncoderHandle,
+                           status: *mut int32_t);
+    pub fn HAL_GetEncoder(encoderHandle: HAL_EncoderHandle,
+                          status: *mut int32_t) -> int32_t;
+    pub fn HAL_GetEncoderRaw(encoderHandle: HAL_EncoderHandle,
+                             status: *mut int32_t) -> int32_t;
+    pub fn HAL_GetEncoderEncodingScale(encoderHandle: HAL_EncoderHandle,
+                                       status: *mut int32_t) -> int32_t;
+    pub fn HAL_ResetEncoder(encoderHandle: HAL_EncoderHandle,
+                            status: *mut int32_t);
+    pub fn HAL_GetEncoderPeriod(encoderHandle: HAL_EncoderHandle,
+                                status: *mut int32_t) -> f64;
+    pub fn HAL_SetEncoderMaxPeriod(encoderHandle: HAL_EncoderHandle,
+                                   maxPeriod: f64, status: *mut int32_t);
+    pub fn HAL_GetEncoderStopped(encoderHandle: HAL_EncoderHandle,
+                                 status: *mut int32_t) -> HAL_Bool;
+    pub fn HAL_GetEncoderDirection(encoderHandle: HAL_EncoderHandle,
+                                   status: *mut int32_t) -> HAL_Bool;
+    pub fn HAL_GetEncoderDistance(encoderHandle: HAL_EncoderHandle,
+                                  status: *mut int32_t) -> f64;
+    pub fn HAL_GetEncoderRate(encoderHandle: HAL_EncoderHandle,
+                              status: *mut int32_t) -> f64;
+    pub fn HAL_SetEncoderMinRate(encoderHandle: HAL_EncoderHandle,
+                                 minRate: f64, status: *mut int32_t);
+    pub fn HAL_SetEncoderDistancePerPulse(encoderHandle: HAL_EncoderHandle,
+                                          distancePerPulse: f64,
+                                          status: *mut int32_t);
+    pub fn HAL_SetEncoderReverseDirection(encoderHandle: HAL_EncoderHandle,
+                                          reverseDirection: HAL_Bool,
+                                          status: *mut int32_t);
+    pub fn HAL_SetEncoderSamplesToAverage(encoderHandle: HAL_EncoderHandle,
+                                          samplesToAverage: int32_t,
+                                          status: *mut int32_t);
+    pub fn HAL_GetEncoderSamplesToAverage(encoderHandle: HAL_EncoderHandle,
+                                          status: *mut int32_t) -> int32_t;
+    pub fn HAL_SetEncoderIndexSource(encoderHandle: HAL_EncoderHandle,
+                                     digitalSourceHandle: HAL_Handle,
+                                     analogTriggerType: HAL_AnalogTriggerType,
+                                     type_: HAL_EncoderIndexingType,
+                                     status: *mut int32_t);
+    pub fn HAL_GetEncoderFPGAIndex(encoderHandle: HAL_EncoderHandle,
+                                   status: *mut int32_t) -> int32_t;
+    pub fn HAL_GetEncoderDecodingScaleFactor(encoderHandle: HAL_EncoderHandle,
+                                             status: *mut int32_t) -> f64;
+    pub fn HAL_GetEncoderDistancePerPulse(encoderHandle: HAL_EncoderHandle,
+                                          status: *mut int32_t) -> f64;
+    pub fn HAL_GetEncoderEncodingType(encoderHandle: HAL_EncoderHandle,
+                                      status: *mut int32_t)
+     -> HAL_EncoderEncodingType;
     pub fn HAL_InitializeI2C(port: int32_t, status: *mut int32_t);
     pub fn HAL_TransactionI2C(port: int32_t, deviceAddress: int32_t,
                               dataToSend: *mut uint8_t, sendSize: int32_t,
@@ -1290,6 +2348,377 @@ extern "C" {
     pub fn HAL_GetPCMSolenoidVoltageFault(module: int32_t,
                                           status: *mut int32_t) -> HAL_Bool;
     pub fn HAL_ClearAllPCMStickyFaults(module: int32_t, status: *mut int32_t);
+    pub fn __sched_cpucount(__setsize: size_t, __setp: *const cpu_set_t)
+     -> ::std::os::raw::c_int;
+    pub fn __sched_cpualloc(__count: size_t) -> *mut cpu_set_t;
+    pub fn __sched_cpufree(__set: *mut cpu_set_t);
+    pub fn sched_setparam(__pid: __pid_t, __param: *const sched_param)
+     -> ::std::os::raw::c_int;
+    pub fn sched_getparam(__pid: __pid_t, __param: *mut sched_param)
+     -> ::std::os::raw::c_int;
+    pub fn sched_setscheduler(__pid: __pid_t, __policy: ::std::os::raw::c_int,
+                              __param: *const sched_param)
+     -> ::std::os::raw::c_int;
+    pub fn sched_getscheduler(__pid: __pid_t) -> ::std::os::raw::c_int;
+    pub fn sched_yield() -> ::std::os::raw::c_int;
+    pub fn sched_get_priority_max(__algorithm: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn sched_get_priority_min(__algorithm: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn sched_rr_get_interval(__pid: __pid_t, __t: *mut timespec)
+     -> ::std::os::raw::c_int;
+    pub fn clock() -> clock_t;
+    pub fn time(__timer: *mut time_t) -> time_t;
+    pub fn difftime(__time1: time_t, __time0: time_t) -> f64;
+    pub fn mktime(__tp: *mut tm) -> time_t;
+    pub fn strftime(__s: *mut ::std::os::raw::c_char, __maxsize: size_t,
+                    __format: *const ::std::os::raw::c_char, __tp: *const tm)
+     -> size_t;
+    pub fn strftime_l(__s: *mut ::std::os::raw::c_char, __maxsize: size_t,
+                      __format: *const ::std::os::raw::c_char,
+                      __tp: *const tm, __loc: __locale_t) -> size_t;
+    pub fn gmtime(__timer: *const time_t) -> *mut tm;
+    pub fn localtime(__timer: *const time_t) -> *mut tm;
+    pub fn gmtime_r(__timer: *const time_t, __tp: *mut tm) -> *mut tm;
+    pub fn localtime_r(__timer: *const time_t, __tp: *mut tm) -> *mut tm;
+    pub fn asctime(__tp: *const tm) -> *mut ::std::os::raw::c_char;
+    pub fn ctime(__timer: *const time_t) -> *mut ::std::os::raw::c_char;
+    pub fn asctime_r(__tp: *const tm, __buf: *mut ::std::os::raw::c_char)
+     -> *mut ::std::os::raw::c_char;
+    pub fn ctime_r(__timer: *const time_t, __buf: *mut ::std::os::raw::c_char)
+     -> *mut ::std::os::raw::c_char;
+    pub fn tzset();
+    pub fn stime(__when: *const time_t) -> ::std::os::raw::c_int;
+    pub fn timegm(__tp: *mut tm) -> time_t;
+    pub fn timelocal(__tp: *mut tm) -> time_t;
+    pub fn dysize(__year: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn nanosleep(__requested_time: *const timespec,
+                     __remaining: *mut timespec) -> ::std::os::raw::c_int;
+    pub fn clock_getres(__clock_id: clockid_t, __res: *mut timespec)
+     -> ::std::os::raw::c_int;
+    pub fn clock_gettime(__clock_id: clockid_t, __tp: *mut timespec)
+     -> ::std::os::raw::c_int;
+    pub fn clock_settime(__clock_id: clockid_t, __tp: *const timespec)
+     -> ::std::os::raw::c_int;
+    pub fn clock_nanosleep(__clock_id: clockid_t,
+                           __flags: ::std::os::raw::c_int,
+                           __req: *const timespec, __rem: *mut timespec)
+     -> ::std::os::raw::c_int;
+    pub fn clock_getcpuclockid(__pid: pid_t, __clock_id: *mut clockid_t)
+     -> ::std::os::raw::c_int;
+    pub fn timer_create(__clock_id: clockid_t, __evp: *mut sigevent,
+                        __timerid: *mut timer_t) -> ::std::os::raw::c_int;
+    pub fn timer_delete(__timerid: timer_t) -> ::std::os::raw::c_int;
+    pub fn timer_settime(__timerid: timer_t, __flags: ::std::os::raw::c_int,
+                         __value: *const itimerspec,
+                         __ovalue: *mut itimerspec) -> ::std::os::raw::c_int;
+    pub fn timer_gettime(__timerid: timer_t, __value: *mut itimerspec)
+     -> ::std::os::raw::c_int;
+    pub fn timer_getoverrun(__timerid: timer_t) -> ::std::os::raw::c_int;
+    pub fn timespec_get(__ts: *mut timespec, __base: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_create(__newthread: *mut pthread_t,
+                          __attr: *const pthread_attr_t,
+                          __start_routine:
+                              ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                                             *mut ::std::os::raw::c_void)
+                                                        ->
+                                                            *mut ::std::os::raw::c_void>,
+                          __arg: *mut ::std::os::raw::c_void)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_exit(__retval: *mut ::std::os::raw::c_void);
+    pub fn pthread_join(__th: pthread_t,
+                        __thread_return: *mut *mut ::std::os::raw::c_void)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_detach(__th: pthread_t) -> ::std::os::raw::c_int;
+    pub fn pthread_self() -> pthread_t;
+    pub fn pthread_equal(__thread1: pthread_t, __thread2: pthread_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_init(__attr: *mut pthread_attr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_destroy(__attr: *mut pthread_attr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getdetachstate(__attr: *const pthread_attr_t,
+                                       __detachstate:
+                                           *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setdetachstate(__attr: *mut pthread_attr_t,
+                                       __detachstate: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getguardsize(__attr: *const pthread_attr_t,
+                                     __guardsize: *mut size_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setguardsize(__attr: *mut pthread_attr_t,
+                                     __guardsize: size_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getschedparam(__attr: *const pthread_attr_t,
+                                      __param: *mut sched_param)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setschedparam(__attr: *mut pthread_attr_t,
+                                      __param: *const sched_param)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getschedpolicy(__attr: *const pthread_attr_t,
+                                       __policy: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setschedpolicy(__attr: *mut pthread_attr_t,
+                                       __policy: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getinheritsched(__attr: *const pthread_attr_t,
+                                        __inherit: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setinheritsched(__attr: *mut pthread_attr_t,
+                                        __inherit: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getscope(__attr: *const pthread_attr_t,
+                                 __scope: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setscope(__attr: *mut pthread_attr_t,
+                                 __scope: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getstackaddr(__attr: *const pthread_attr_t,
+                                     __stackaddr:
+                                         *mut *mut ::std::os::raw::c_void)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setstackaddr(__attr: *mut pthread_attr_t,
+                                     __stackaddr: *mut ::std::os::raw::c_void)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getstacksize(__attr: *const pthread_attr_t,
+                                     __stacksize: *mut size_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setstacksize(__attr: *mut pthread_attr_t,
+                                     __stacksize: size_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_getstack(__attr: *const pthread_attr_t,
+                                 __stackaddr:
+                                     *mut *mut ::std::os::raw::c_void,
+                                 __stacksize: *mut size_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_attr_setstack(__attr: *mut pthread_attr_t,
+                                 __stackaddr: *mut ::std::os::raw::c_void,
+                                 __stacksize: size_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_setschedparam(__target_thread: pthread_t,
+                                 __policy: ::std::os::raw::c_int,
+                                 __param: *const sched_param)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_getschedparam(__target_thread: pthread_t,
+                                 __policy: *mut ::std::os::raw::c_int,
+                                 __param: *mut sched_param)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_setschedprio(__target_thread: pthread_t,
+                                __prio: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_once(__once_control: *mut pthread_once_t,
+                        __init_routine:
+                            ::std::option::Option<extern "C" fn()>)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_setcancelstate(__state: ::std::os::raw::c_int,
+                                  __oldstate: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_setcanceltype(__type: ::std::os::raw::c_int,
+                                 __oldtype: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_cancel(__th: pthread_t) -> ::std::os::raw::c_int;
+    pub fn pthread_testcancel();
+    pub fn __pthread_register_cancel(__buf: *mut __pthread_unwind_buf_t);
+    pub fn __pthread_unregister_cancel(__buf: *mut __pthread_unwind_buf_t);
+    pub fn __pthread_unwind_next(__buf: *mut __pthread_unwind_buf_t);
+    pub fn __sigsetjmp(__env: *mut __jmp_buf_tag,
+                       __savemask: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_init(__mutex: *mut pthread_mutex_t,
+                              __mutexattr: *const pthread_mutexattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_destroy(__mutex: *mut pthread_mutex_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_trylock(__mutex: *mut pthread_mutex_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_lock(__mutex: *mut pthread_mutex_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_timedlock(__mutex: *mut pthread_mutex_t,
+                                   __abstime: *const timespec)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_unlock(__mutex: *mut pthread_mutex_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_getprioceiling(__mutex: *const pthread_mutex_t,
+                                        __prioceiling:
+                                            *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_setprioceiling(__mutex: *mut pthread_mutex_t,
+                                        __prioceiling: ::std::os::raw::c_int,
+                                        __old_ceiling:
+                                            *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutex_consistent(__mutex: *mut pthread_mutex_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_init(__attr: *mut pthread_mutexattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_destroy(__attr: *mut pthread_mutexattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_getpshared(__attr: *const pthread_mutexattr_t,
+                                        __pshared: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_setpshared(__attr: *mut pthread_mutexattr_t,
+                                        __pshared: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_gettype(__attr: *const pthread_mutexattr_t,
+                                     __kind: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_settype(__attr: *mut pthread_mutexattr_t,
+                                     __kind: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_getprotocol(__attr: *const pthread_mutexattr_t,
+                                         __protocol:
+                                             *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_setprotocol(__attr: *mut pthread_mutexattr_t,
+                                         __protocol: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_getprioceiling(__attr:
+                                                *const pthread_mutexattr_t,
+                                            __prioceiling:
+                                                *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_setprioceiling(__attr: *mut pthread_mutexattr_t,
+                                            __prioceiling:
+                                                ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_getrobust(__attr: *const pthread_mutexattr_t,
+                                       __robustness:
+                                           *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_mutexattr_setrobust(__attr: *mut pthread_mutexattr_t,
+                                       __robustness: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_init(__rwlock: *mut pthread_rwlock_t,
+                               __attr: *const pthread_rwlockattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_destroy(__rwlock: *mut pthread_rwlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_rdlock(__rwlock: *mut pthread_rwlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_tryrdlock(__rwlock: *mut pthread_rwlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_timedrdlock(__rwlock: *mut pthread_rwlock_t,
+                                      __abstime: *const timespec)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_wrlock(__rwlock: *mut pthread_rwlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_trywrlock(__rwlock: *mut pthread_rwlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_timedwrlock(__rwlock: *mut pthread_rwlock_t,
+                                      __abstime: *const timespec)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlock_unlock(__rwlock: *mut pthread_rwlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlockattr_init(__attr: *mut pthread_rwlockattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlockattr_destroy(__attr: *mut pthread_rwlockattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlockattr_getpshared(__attr: *const pthread_rwlockattr_t,
+                                         __pshared:
+                                             *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlockattr_setpshared(__attr: *mut pthread_rwlockattr_t,
+                                         __pshared: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlockattr_getkind_np(__attr: *const pthread_rwlockattr_t,
+                                         __pref: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_rwlockattr_setkind_np(__attr: *mut pthread_rwlockattr_t,
+                                         __pref: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_cond_init(__cond: *mut pthread_cond_t,
+                             __cond_attr: *const pthread_condattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_cond_destroy(__cond: *mut pthread_cond_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_cond_signal(__cond: *mut pthread_cond_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_cond_broadcast(__cond: *mut pthread_cond_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_cond_wait(__cond: *mut pthread_cond_t,
+                             __mutex: *mut pthread_mutex_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_cond_timedwait(__cond: *mut pthread_cond_t,
+                                  __mutex: *mut pthread_mutex_t,
+                                  __abstime: *const timespec)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_condattr_init(__attr: *mut pthread_condattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_condattr_destroy(__attr: *mut pthread_condattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_condattr_getpshared(__attr: *const pthread_condattr_t,
+                                       __pshared: *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_condattr_setpshared(__attr: *mut pthread_condattr_t,
+                                       __pshared: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_condattr_getclock(__attr: *const pthread_condattr_t,
+                                     __clock_id: *mut __clockid_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_condattr_setclock(__attr: *mut pthread_condattr_t,
+                                     __clock_id: __clockid_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_spin_init(__lock: *mut pthread_spinlock_t,
+                             __pshared: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_spin_destroy(__lock: *mut pthread_spinlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_spin_lock(__lock: *mut pthread_spinlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_spin_trylock(__lock: *mut pthread_spinlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_spin_unlock(__lock: *mut pthread_spinlock_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_barrier_init(__barrier: *mut pthread_barrier_t,
+                                __attr: *const pthread_barrierattr_t,
+                                __count: ::std::os::raw::c_uint)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_barrier_destroy(__barrier: *mut pthread_barrier_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_barrier_wait(__barrier: *mut pthread_barrier_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_barrierattr_init(__attr: *mut pthread_barrierattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_barrierattr_destroy(__attr: *mut pthread_barrierattr_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_barrierattr_getpshared(__attr:
+                                              *const pthread_barrierattr_t,
+                                          __pshared:
+                                              *mut ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_barrierattr_setpshared(__attr: *mut pthread_barrierattr_t,
+                                          __pshared: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_key_create(__key: *mut pthread_key_t,
+                              __destr_function:
+                                  ::std::option::Option<unsafe extern "C" fn(arg1:
+                                                                                 *mut ::std::os::raw::c_void)>)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_key_delete(__key: pthread_key_t) -> ::std::os::raw::c_int;
+    pub fn pthread_getspecific(__key: pthread_key_t)
+     -> *mut ::std::os::raw::c_void;
+    pub fn pthread_setspecific(__key: pthread_key_t,
+                               __pointer: *const ::std::os::raw::c_void)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_getcpuclockid(__thread_id: pthread_t,
+                                 __clock_id: *mut __clockid_t)
+     -> ::std::os::raw::c_int;
+    pub fn pthread_atfork(__prepare: ::std::option::Option<extern "C" fn()>,
+                          __parent: ::std::option::Option<extern "C" fn()>,
+                          __child: ::std::option::Option<extern "C" fn()>)
+     -> ::std::os::raw::c_int;
+    pub fn HAL_GetThreadPriority(handle: *const pthread_t,
+                                 isRealTime: *mut HAL_Bool,
+                                 status: *mut int32_t) -> int32_t;
+    pub fn HAL_GetCurrentThreadPriority(isRealTime: *mut HAL_Bool,
+                                        status: *mut int32_t) -> int32_t;
+    pub fn HAL_SetThreadPriority(handle: *const pthread_t, realTime: HAL_Bool,
+                                 priority: int32_t, status: *mut int32_t)
+     -> HAL_Bool;
+    pub fn HAL_SetCurrentThreadPriority(realTime: HAL_Bool, priority: int32_t,
+                                        status: *mut int32_t) -> HAL_Bool;
     pub fn __ctype_get_mb_cur_max() -> size_t;
     pub fn atof(__nptr: *const ::std::os::raw::c_char) -> f64;
     pub fn atoi(__nptr: *const ::std::os::raw::c_char)
@@ -1529,6 +2958,9 @@ extern "C" {
      -> ::std::os::raw::c_int;
     pub fn getloadavg(__loadavg: *mut f64, __nelem: ::std::os::raw::c_int)
      -> ::std::os::raw::c_int;
+    pub fn report(resource: tResourceType, instanceNumber: uint8_t,
+                  context: uint8_t, feature: *const ::std::os::raw::c_char)
+     -> uint32_t;
     pub fn FRC_NetworkCommunication_nUsageReporting_report(resource: uint8_t,
                                                            instanceNumber:
                                                                uint8_t,

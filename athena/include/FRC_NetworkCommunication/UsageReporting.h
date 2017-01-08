@@ -16,9 +16,8 @@
 
 #define kUsageReporting_version 1
 
-/*
-namespace nUsageReporting
-{
+// namespace nUsageReporting
+// {
     typedef enum
     {
         kResourceType_Controller,
@@ -130,7 +129,7 @@ namespace nUsageReporting
 
         kSmartDashboard_Instance = 1,
     } tInstances;
-*/
+
     /**
      * Report the usage of a resource of interest.
      * 
@@ -139,10 +138,8 @@ namespace nUsageReporting
      * @param context an optional additional context number for some cases (such as module number).  Set to 0 to omit.
      * @param feature a string to be included describing features in use on a specific resource.  Setting the same resource more than once allows you to change the feature string.
      */
-/*
-    uint32_t EXPORT_FUNC report(tResourceType resource, uint8_t instanceNumber, uint8_t context = 0, const char *feature = NULL);
-}
-*/
+    uint32_t EXPORT_FUNC report(tResourceType resource, uint8_t instanceNumber, uint8_t context, const char *feature);
+// }
 
 #ifdef __cplusplus
 extern "C" {

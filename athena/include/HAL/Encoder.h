@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2016. All Rights Reserved.                             */
+/* Copyright (c) FIRST 2016-2017. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -12,13 +12,13 @@
 #include "HAL/AnalogTrigger.h"
 #include "HAL/Types.h"
 
-enum HAL_EncoderIndexingType : int32_t {
+enum HAL_EncoderIndexingType {
   HAL_kResetWhileHigh,
   HAL_kResetWhileLow,
   HAL_kResetOnFallingEdge,
   HAL_kResetOnRisingEdge
 };
-enum HAL_EncoderEncodingType : int32_t {
+enum HAL_EncoderEncodingType {
   HAL_Encoder_k1X,
   HAL_Encoder_k2X,
   HAL_Encoder_k4X
@@ -28,9 +28,9 @@ enum HAL_EncoderEncodingType : int32_t {
 extern "C" {
 #endif
 HAL_EncoderHandle HAL_InitializeEncoder(
-    HAL_Handle digitalSourceHandleA, HAL_AnalogTriggerType analogTriggerTypeA,
-    HAL_Handle digitalSourceHandleB, HAL_AnalogTriggerType analogTriggerTypeB,
-    HAL_Bool reverseDirection, HAL_EncoderEncodingType encodingType,
+    HAL_Handle digitalSourceHandleA, enum HAL_AnalogTriggerType analogTriggerTypeA,
+    HAL_Handle digitalSourceHandleB, enum HAL_AnalogTriggerType analogTriggerTypeB,
+    HAL_Bool reverseDirection, enum HAL_EncoderEncodingType encodingType,
     int32_t* status);
 void HAL_FreeEncoder(HAL_EncoderHandle encoderHandle, int32_t* status);
 int32_t HAL_GetEncoder(HAL_EncoderHandle encoderHandle, int32_t* status);
@@ -60,8 +60,8 @@ int32_t HAL_GetEncoderSamplesToAverage(HAL_EncoderHandle encoderHandle,
 
 void HAL_SetEncoderIndexSource(HAL_EncoderHandle encoderHandle,
                                HAL_Handle digitalSourceHandle,
-                               HAL_AnalogTriggerType analogTriggerType,
-                               HAL_EncoderIndexingType type, int32_t* status);
+                               enum HAL_AnalogTriggerType analogTriggerType,
+                               enum HAL_EncoderIndexingType type, int32_t* status);
 
 int32_t HAL_GetEncoderFPGAIndex(HAL_EncoderHandle encoderHandle,
                                 int32_t* status);
@@ -72,7 +72,7 @@ double HAL_GetEncoderDecodingScaleFactor(HAL_EncoderHandle encoderHandle,
 double HAL_GetEncoderDistancePerPulse(HAL_EncoderHandle encoderHandle,
                                       int32_t* status);
 
-HAL_EncoderEncodingType HAL_GetEncoderEncodingType(
+enum HAL_EncoderEncodingType HAL_GetEncoderEncodingType(
     HAL_EncoderHandle encoderHandle, int32_t* status);
 #ifdef __cplusplus
 }
