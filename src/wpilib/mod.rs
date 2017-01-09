@@ -19,3 +19,9 @@ mod timer;
 pub use self::timer::*;
 
 pub mod sensor;
+
+mod digital_input;
+pub use self::digital_input::DigitalInput;
+
+mod digital_output;
+pub use self::digital_output::DigitalOutput;
