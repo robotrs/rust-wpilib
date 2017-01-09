@@ -17,3 +17,5 @@ pub mod fpga;
 
 mod timer;
 pub use self::timer::*;
+
+pub mod sensor;
