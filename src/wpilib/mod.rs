@@ -27,3 +27,6 @@ pub use self::digital_input::DigitalInput;
 
 mod digital_output;
 pub use self::digital_output::DigitalOutput;
+
+mod encoder;
+pub use self::encoder::Encoder;
