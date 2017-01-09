@@ -2,6 +2,9 @@
 mod robot;
 pub use self::robot::*;
 
+#[macro_use]
+mod hal_call;
+
 mod driverstation;
 pub use self::driverstation::DriverStation;
 
