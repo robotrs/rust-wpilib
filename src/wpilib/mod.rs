@@ -14,3 +14,6 @@ mod throttler;
 pub use self::throttler::Throttler;
 
 pub mod fpga;
+
+mod timer;
+pub use self::timer::*;
