@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Kyle Stachowicz <kylestach99@gmail.com>"]
 build = "build.rs"
 
+[dependencies]
+atom="*"
+
 [lib]
 name = "wpilib"
 path = "src/lib.rs"

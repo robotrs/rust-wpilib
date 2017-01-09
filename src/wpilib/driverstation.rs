@@ -5,6 +5,8 @@ use std::sync::mpsc;
 use std::ptr;
 use std::mem::transmute;
 use std::ffi::CString;
+use std::sync::Arc;
+use atom::*;
 
 const MAX_JOYSTICK_PORTS: usize = 6;
 const MAX_JOYSTICK_AXES: usize = 12;
@@ -27,10 +29,10 @@ pub enum RobotState {
     EStop,
 }
 
-type DSChannelData = (Joysticks, hal::HAL_ControlWord);
+type DSBuffer = Box<(Joysticks, hal::HAL_ControlWord)>;
 
 pub struct DriverStation {
-    data_channel: mpsc::Receiver<DSChannelData>,
+    data: Arc<Atom<DSBuffer>>,
     joysticks: Joysticks,
     pub state: RobotState,
     pub fms_attached: bool,
@@ -39,7 +41,7 @@ pub struct DriverStation {
     report_throttler: Throttler<f64>,
 }
 
-static mut driver_station: *mut DriverStation = 0 as *mut DriverStation;
+static mut DRIVER_STATION: *mut DriverStation = 0 as *mut DriverStation;
 
 #[derive(Debug)]
 pub enum JoystickError {
@@ -50,8 +52,11 @@ pub enum JoystickError {
 
 impl DriverStation {
     fn new() -> DriverStation {
-        let (tx, rx) = mpsc::channel::<DSChannelData>();
+        let mut data_atom = Arc::new(Atom::empty());
+        let mut other_atom = data_atom.clone();
+
         let join = thread::spawn(move || {
+            let mut data_atom = data_atom.clone();
             loop {
                 let mut joysticks = Joysticks::default();
                 for stick in 0..MAX_JOYSTICK_PORTS {
@@ -75,11 +80,13 @@ impl DriverStation {
                 unsafe {
                     hal::HAL_GetControlWord(&mut control_word as *mut hal::HAL_ControlWord);
                 }
-                tx.send((joysticks, control_word));
+
+                data_atom.swap(Box::new((joysticks, control_word)));
             }
         });
+
         DriverStation {
-            data_channel: rx,
+            data: other_atom,
             joysticks: Joysticks::default(),
             state: RobotState::Disabled,
             fms_attached: false,
@@ -92,8 +99,9 @@ impl DriverStation {
     }
 
     fn update_data(&mut self) {
-        if let Ok((new_joysticks, new_control_word)) = self.data_channel.try_recv() {
-            self.joysticks = new_joysticks;
+        if let Some(boxed_data) = self.data.take() {
+            let new_control_word = boxed_data.1;
+            self.joysticks = boxed_data.0;
             self.state = if new_control_word.enabled() {
                 if new_control_word.autonomous() {
                     RobotState::Autonomous
@@ -140,10 +148,10 @@ impl DriverStation {
 
     pub fn instance() -> &'static mut DriverStation {
         unsafe {
-            if driver_station == 0 as *mut DriverStation {
-                driver_station = transmute(Box::new(DriverStation::new()));
+            if DRIVER_STATION == 0 as *mut DriverStation {
+                DRIVER_STATION = transmute(Box::new(DriverStation::new()));
             }
-            &mut *driver_station
+            &mut *DRIVER_STATION
         }
     }
 
