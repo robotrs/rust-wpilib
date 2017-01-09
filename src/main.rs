@@ -9,6 +9,7 @@ impl Robot for TestRobot {
         println!("Running!");
         loop {
             println!("{:?}", DriverStation::instance().get_joystick_axis(0, 1));
+            println!("{:?}", fpga::get_time_us());
         }
     }
 
@@ -17,4 +18,6 @@ impl Robot for TestRobot {
     }
 }
 
-start_robot_class!{TestRobot}
+fn main() {
+    TestRobot::main();
+}
