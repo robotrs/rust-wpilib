@@ -1,4 +1,5 @@
 use wpilib::wpilib_hal::*;
+use wpilib::hal_call::*;
 use wpilib::sensor;
 use std::ptr;
 
@@ -8,7 +9,7 @@ pub struct DigitalInput {
 }
 
 impl DigitalInput {
-    pub fn new(channel: i32) -> Result<DigitalInput, i32> {
+    pub fn new(channel: i32) -> HalResult<DigitalInput> {
         if !sensor::check_digital_channel(channel) {
             return Err(0);
         }
@@ -23,7 +24,7 @@ impl DigitalInput {
         })
     }
 
-    pub fn get(&self) -> Result<bool, i32> {
+    pub fn get(&self) -> HalResult<bool> {
         Ok(hal_call!(HAL_GetDIO(self.handle))? != 0)
     }
 

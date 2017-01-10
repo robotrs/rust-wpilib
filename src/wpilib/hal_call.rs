@@ -1,3 +1,5 @@
+pub type HalResult<T> = Result<T, i32>;
+
 #[macro_export]
 macro_rules! hal_call {
     ($function:ident($($arg:expr),*)) => {{
