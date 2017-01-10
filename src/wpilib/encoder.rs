@@ -18,7 +18,10 @@ pub struct Encoder {
 }
 
 impl Encoder {
-    pub fn new(channel_a: i32, channel_b: i32, encoding: HAL_EncoderEncodingType) -> Result<Encoder, i32> {
+    pub fn new(channel_a: i32,
+               channel_b: i32,
+               encoding: HAL_EncoderEncodingType)
+               -> Result<Encoder, i32> {
         let source_a = DigitalInput::new(channel_a)?;
         let source_b = DigitalInput::new(channel_b)?;
 
@@ -48,12 +51,24 @@ impl Encoder {
         hal_call!(HAL_GetEncoder(self.encoder))
     }
 
+    pub fn get_raw(&self) -> Result<i32, i32> {
+        hal_call!(HAL_GetEncoderRaw(self.encoder))
+    }
+
+    pub fn get_encoding_scale(&self) -> Result<i32, i32> {
+        hal_call!(HAL_GetEncoderEncodingScale(self.encoder))
+    }
+
     pub fn get_rate(&self) -> Result<f64, i32> {
         hal_call!(HAL_GetEncoderRate(self.encoder))
     }
 
     pub fn set_min_rate(&mut self, min_rate: f64) -> Result<(), i32> {
         hal_call!(HAL_SetEncoderMinRate(self.encoder, min_rate))
+    }
+
+    pub fn reset(&mut self) -> Result<(), i32> {
+        hal_call!(HAL_ResetEncoder(self.encoder))
     }
 }
 
