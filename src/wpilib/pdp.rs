@@ -7,12 +7,12 @@ pub struct PowerDistributionPanel {
 }
 
 impl PowerDistributionPanel {
-    fn new(module: i32) -> PowerDistributionPanel {
-        hal_call!(HAL_InitializePDP(module));
-        PowerDistributionPanel { module: module }
+    fn new(module: i32) -> HalResult<PowerDistributionPanel> {
+        hal_call!(HAL_InitializePDP(module))?;
+        Ok(PowerDistributionPanel { module: module })
     }
 
-    fn default() -> PowerDistributionPanel {
+    fn default() -> HalResult<PowerDistributionPanel> {
         PowerDistributionPanel::new(0)
     }
 
