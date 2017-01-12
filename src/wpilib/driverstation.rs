@@ -2,7 +2,7 @@ use wpilib::wpilib_hal::*;
 use wpilib::hal_call::*;
 use wpilib::Throttler;
 
-use std::{thread, ptr, time, mem, ffi, sync};
+use std::{thread, time, mem, ffi, sync};
 // use std::sync::{Arc, Condvar, Mutex, Once, ONCE_INIT};
 
 use atom::Atom;
@@ -40,6 +40,8 @@ pub struct DriverStation {
     report_throttler: Throttler<f64>,
 
     waiter: sync::Arc<(sync::Mutex<bool>, sync::Condvar)>,
+
+    join: Option<thread::JoinHandle<()>>,
 }
 
 static CREATE_DS: sync::Once = sync::ONCE_INIT;
@@ -61,8 +63,8 @@ pub enum AllianceId {
 
 impl DriverStation {
     fn new() -> DriverStation {
-        let mut data_atom = sync::Arc::new(Atom::empty());
-        let mut waiter = sync::Arc::new((sync::Mutex::new(false), sync::Condvar::new()));
+        let data_atom = sync::Arc::new(Atom::empty());
+        let waiter = sync::Arc::new((sync::Mutex::new(false), sync::Condvar::new()));
 
         let mut ds = DriverStation {
             data: data_atom,
@@ -76,6 +78,8 @@ impl DriverStation {
             report_throttler: Throttler::new(0.0, 0.0),
 
             waiter: waiter,
+
+            join: None,
         };
 
         ds.spawn_updater();
@@ -84,10 +88,10 @@ impl DriverStation {
 
     /// Spawn the updater thread. This should not be called after the constructor is finished.
     fn spawn_updater(&mut self) {
-        let mut data_atom = self.data.clone();
-        let mut waiter = self.waiter.clone();
+        let data_atom = self.data.clone();
+        let waiter = self.waiter.clone();
 
-        let join = thread::spawn(move || {
+        self.join = Some(thread::spawn(move || {
             loop {
                 // Wait for the HAL to get new data
                 unsafe {
@@ -126,7 +130,7 @@ impl DriverStation {
                     waiter.1.notify_all();
                 }
             }
-        });
+        }));
     }
 
     /// Read new joystick and control word data
@@ -297,5 +301,13 @@ impl DriverStation {
             }
         }
         true
+    }
+}
+
+impl Drop for DriverStation {
+    fn drop(&mut self) {
+        if let Some(join) = self.join.take() {
+            let _ = join.join();
+        }
     }
 }
