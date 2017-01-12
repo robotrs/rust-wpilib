@@ -1,0 +1,32 @@
+language: rust
+
+sudo: required
+dist: trusty
+
+before_install:
+  - curl https://sh.rustup.rs -sSf > rustup.sh
+  - chmod +x rustup.sh
+  - ./rustup.sh -y
+
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:wpilib/toolchain'
+    packages:
+      - frc-toolchain
+
+install:
+  - source ~/.cargo/env
+  - rustup target add arm-unknown-linux-gnueabi
+  - echo "[target.arm-unknown-linux-gnueabi]" >> ~/.cargo/config
+  - echo 'linker = "arm-frc-linux-gnueabi-gcc"' >> ~/.cargo/config
+
+rust:
+  - stable
+  - beta
+  - nightly
+matrix:
+  allow_failures:
+    - rust: nightly
+
+script: cargo build --verbose --target=arm-unknown-linux-gnueabi
