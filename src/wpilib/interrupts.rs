@@ -33,7 +33,7 @@ pub fn request_interrupts_async(handler: HAL_InterruptHandlerFunction,
                                 -> HalResult<HAL_InterruptHandle> {
     let handle = allocate_interrupts(false)?;
     hal_call!(HAL_RequestInterrupts(handle, port_handle, mem::transmute(analog_trigger_type)))?;
-    setup_source_edge(port_handle, true, false);
+    setup_source_edge(port_handle, true, false)?;
     hal_call!(HAL_AttachInterruptHandler(handle, handler, param))?;
     Ok(handle)
 }
@@ -43,7 +43,7 @@ pub fn request_interrupts_sync(port_handle: HAL_Handle,
                                -> HalResult<HAL_InterruptHandle> {
     let handle = allocate_interrupts(true)?;
     hal_call!(HAL_RequestInterrupts(handle, port_handle, mem::transmute(analog_trigger_type)))?;
-    setup_source_edge(handle, true, false);
+    setup_source_edge(handle, true, false)?;
     Ok(handle)
 }
 
