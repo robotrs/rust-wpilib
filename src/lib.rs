@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 extern crate atom;
 
 #[macro_use]
