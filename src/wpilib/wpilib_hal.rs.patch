@@ -1,0 +1,37 @@
+--- a/src/wpilib/wpilibhal.rs	2017-01-07 20:21:31.252169038 -0800
++++ b/src/wpilib/wpilibhal.rs	2017-01-07 20:22:24.028326383 -0800
+@@ -204,13 +204,27 @@
+ #[derive(Copy, Clone)]
+ #[derive(Debug)]
+ pub struct HAL_ControlWord {
+-    pub _bindgen_bitfield_1_: uint32_t,
+-    pub _bindgen_bitfield_2_: uint32_t,
+-    pub _bindgen_bitfield_3_: uint32_t,
+-    pub _bindgen_bitfield_4_: uint32_t,
+-    pub _bindgen_bitfield_5_: uint32_t,
+-    pub _bindgen_bitfield_6_: uint32_t,
+-    pub _bindgen_bitfield_7_: uint32_t,
++    field: u32,
++}
++impl HAL_ControlWord {
++    pub fn enabled(&self) -> bool {
++        (self.field & (1 << 0)) != 0
++    }
++    pub fn autonomous(&self) -> bool {
++        (self.field & (1 << 0)) != 0
++    }
++    pub fn test(&self) -> bool {
++        (self.field & (1 << 0)) != 0
++    }
++    pub fn eStop(&self) -> bool {
++        (self.field & (1 << 0)) != 0
++    }
++    pub fn fmsAttached(&self) -> bool {
++        (self.field & (1 << 0)) != 0
++    }
++    pub fn dsAttached(&self) -> bool {
++        (self.field & (1 << 0)) != 0
++    }
+ }
+ impl ::std::default::Default for HAL_ControlWord {
+     fn default() -> Self { unsafe { ::std::mem::zeroed() } }

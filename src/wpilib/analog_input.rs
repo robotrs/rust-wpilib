@@ -12,7 +12,7 @@ pub struct AnalogInput {
 impl AnalogInput {
     pub fn new(channel: i32) -> HalResult<AnalogInput> {
         if !sensor::check_analog_input_channel(channel) {
-            return Err(0);
+            return Err(HalError(0));
         }
 
         let port = hal_call!(HAL_InitializeAnalogInputPort(HAL_GetPort(channel)))?;

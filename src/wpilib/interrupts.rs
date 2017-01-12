@@ -1,5 +1,5 @@
 use wpilib::wpilib_hal::*;
-use wpilib::hal_call::HalResult;
+use wpilib::hal_call::*;
 use std::{mem, os};
 
 #[repr(u32)]
@@ -16,7 +16,7 @@ pub fn setup_source_edge(interrupt: HAL_InterruptHandle,
                          falling: bool)
                          -> HalResult<()> {
     if interrupt == 0 {
-        Err(0)
+        Err(HalError(0))
     } else {
         hal_call!(HAL_SetInterruptUpSourceEdge(interrupt, rising as i32, falling as i32))
     }
@@ -49,7 +49,7 @@ pub fn request_interrupts_sync(port_handle: HAL_Handle,
 
 pub fn cancel_interrupts(interrupt: HAL_InterruptHandle) -> HalResult<()> {
     if interrupt == 0 {
-        Err(0)
+        Err(HalError(0))
     } else {
         hal_call!(HAL_CleanInterrupts(interrupt))
     }

@@ -1,4 +1,5 @@
 use wpilib::wpilib_hal::*;
+use wpilib::hal_call::*;
 
 /// Gets the FPGA version
 pub fn version() -> i32 {
