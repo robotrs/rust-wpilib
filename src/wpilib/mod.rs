@@ -35,3 +35,6 @@ mod pdp;
 pub use self::pdp::PowerDistributionPanel;
 
 pub mod robot_state;
+
+mod analog_input;
+pub use self::analog_input::AnalogInput;
