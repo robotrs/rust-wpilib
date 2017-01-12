@@ -33,3 +33,5 @@ pub use self::encoder::Encoder;
 
 mod pdp;
 pub use self::pdp::PowerDistributionPanel;
+
+pub mod robot_state;
