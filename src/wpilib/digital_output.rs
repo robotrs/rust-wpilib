@@ -56,8 +56,8 @@ impl DigitalOutput {
 
     pub fn enable_pwm(&mut self, initial_duty_cycle: f64) -> HalResult<()> {
         let pwm = hal_call!(HAL_AllocateDigitalPWM())?;
-        hal_call!(HAL_SetDigitalPWMDutyCycle(pwm, initial_duty_cycle));
-        hal_call!(HAL_SetDigitalPWMOutputChannel(pwm, self.channel));
+        hal_call!(HAL_SetDigitalPWMDutyCycle(pwm, initial_duty_cycle))?;
+        hal_call!(HAL_SetDigitalPWMOutputChannel(pwm, self.channel))?;
         self.pwm = Some(pwm);
         Ok(())
     }
@@ -82,7 +82,7 @@ impl DigitalOutput {
 
 impl Drop for DigitalOutput {
     fn drop(&mut self) {
-        self.disable_pwm();
+        let _ = self.disable_pwm();
         unsafe {
             HAL_FreeDIOPort(self.handle);
         }
