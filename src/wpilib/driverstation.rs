@@ -1,14 +1,11 @@
 use wpilib::wpilib_hal::*;
 use wpilib::hal_call::*;
 use wpilib::Throttler;
-use std::thread;
-use std::sync::mpsc;
-use std::ptr;
-use std::mem::transmute;
-use std::ffi::CString;
-use std::sync::{Arc, Condvar, Mutex};
-use atom::*;
-use std::time::Duration;
+
+use std::{thread, ptr, time, mem, ffi, sync};
+// use std::sync::{Arc, Condvar, Mutex, Once, ONCE_INIT};
+
+use atom::Atom;
 
 const MAX_JOYSTICK_PORTS: usize = 6;
 const MAX_JOYSTICK_AXES: usize = 12;
@@ -34,7 +31,7 @@ pub enum RobotState {
 type DSBuffer = Box<(Joysticks, HAL_ControlWord)>;
 
 pub struct DriverStation {
-    data: Arc<Atom<DSBuffer>>,
+    data: sync::Arc<Atom<DSBuffer>>,
     joysticks: Joysticks,
     pub state: RobotState,
     pub fms_attached: bool,
@@ -42,9 +39,10 @@ pub struct DriverStation {
 
     report_throttler: Throttler<f64>,
 
-    waiter: Arc<(Mutex<bool>, Condvar)>,
+    waiter: sync::Arc<(sync::Mutex<bool>, sync::Condvar)>,
 }
 
+static CREATE_DS: sync::Once = sync::ONCE_INIT;
 static mut DRIVER_STATION: *mut DriverStation = 0 as *mut DriverStation;
 
 #[derive(Debug, Copy, Clone)]
@@ -63,21 +61,40 @@ pub enum AllianceId {
 
 impl DriverStation {
     fn new() -> DriverStation {
-        let mut data_atom = Arc::new(Atom::empty());
-        let mut other_atom = data_atom.clone();
+        let mut data_atom = sync::Arc::new(Atom::empty());
+        let mut waiter = sync::Arc::new((sync::Mutex::new(false), sync::Condvar::new()));
 
-        let mut waiter = Arc::new((Mutex::new(false), Condvar::new()));
-        let mut other_waiter = waiter.clone();
+        let mut ds = DriverStation {
+            data: data_atom,
+            joysticks: Joysticks::default(),
+            state: RobotState::Disabled,
+            fms_attached: false,
+            ds_attached: false,
+
+            // For now use an interval of 0 so we don't actually throttle messages, as the FPGA
+            // timer isn't implemented yet.
+            report_throttler: Throttler::new(0.0, 0.0),
+
+            waiter: waiter,
+        };
+
+        ds.spawn_updater();
+        ds
+    }
+
+    /// Spawn the updater thread. This should not be called after the constructor is finished.
+    fn spawn_updater(&mut self) {
+        let mut data_atom = self.data.clone();
+        let mut waiter = self.waiter.clone();
 
         let join = thread::spawn(move || {
-            let mut data_atom = other_atom;
-            let mut waiter = other_waiter;
-
             loop {
+                // Wait for the HAL to get new data
                 unsafe {
                     HAL_WaitForDSData();
                 }
 
+                // Update the joysticks and control word using the new data.
                 let mut joysticks = Joysticks::default();
                 for stick in 0..MAX_JOYSTICK_PORTS {
                     unsafe {
@@ -99,8 +116,10 @@ impl DriverStation {
                     HAL_GetControlWord(&mut control_word as *mut HAL_ControlWord);
                 }
 
+                // Write that data into the atom for usage by callers
                 data_atom.swap(Box::new((joysticks, control_word)));
 
+                // Notify any threads waiting for data
                 {
                     let mut guard = waiter.0.lock().unwrap();
                     *guard = true;
@@ -108,22 +127,9 @@ impl DriverStation {
                 }
             }
         });
-
-        DriverStation {
-            data: data_atom,
-            joysticks: Joysticks::default(),
-            state: RobotState::Disabled,
-            fms_attached: false,
-            ds_attached: false,
-
-            // For now use an interval of 0 so we don't actually throttle messages, as the FPGA
-            // timer isn't implemented yet.
-            report_throttler: Throttler::new(0.0, 0.0),
-
-            waiter: waiter,
-        }
     }
 
+    /// Read new joystick and control word data
     fn update_data(&mut self) {
         if let Some(boxed_data) = self.data.take() {
             let new_control_word = boxed_data.1;
@@ -144,14 +150,16 @@ impl DriverStation {
         }
     }
 
+    /// Report an error to the driver station in its most general form. Don't use this directly,
+    /// instead use it in other error reporting methods.
     fn report(&self, is_error: bool, code: i32, error: &str, location: &str, stack: &str) {
         unsafe {
             HAL_SendError(is_error as i32,
                           code,
                           false as i32,
-                          CString::new(error).unwrap().into_raw(),
-                          CString::new(location).unwrap().into_raw(),
-                          CString::new(stack).unwrap().into_raw(),
+                          ffi::CString::new(error).unwrap().into_raw(),
+                          ffi::CString::new(location).unwrap().into_raw(),
+                          ffi::CString::new(stack).unwrap().into_raw(),
                           true as i32);
         }
     }
@@ -164,6 +172,7 @@ impl DriverStation {
         self.report(false, 1, warning, "", "");
     }
 
+    /// Report a message at a throttled rate
     fn report_throttled(&mut self, is_error: bool, message: &str) {
         // Don't actually throttle it; FPGA timer is unimplemented
         let now = 1f64;
@@ -172,11 +181,13 @@ impl DriverStation {
         }
     }
 
+    /// Get an instance of the driver station. This will create a new instance if one does not
+    /// exist.
     pub fn instance() -> &'static mut DriverStation {
         unsafe {
-            if DRIVER_STATION == 0 as *mut DriverStation {
-                DRIVER_STATION = transmute(Box::new(DriverStation::new()));
-            }
+            CREATE_DS.call_once(|| {
+                DRIVER_STATION = mem::transmute(Box::new(DriverStation::new()));
+            });
             &mut *DRIVER_STATION
         }
     }
@@ -273,7 +284,7 @@ impl DriverStation {
 
     /// Waits for a new driver station packet and returns true, or returns false if timeout is
     /// exceeded.
-    pub fn wait_for_data_or_timeout(&self, timeout: Duration) -> bool {
+    pub fn wait_for_data_or_timeout(&self, timeout: time::Duration) -> bool {
         let &(ref wait_lock, ref wait_cond) = &*self.waiter;
         let mut has_data = wait_lock.lock().unwrap();
 
