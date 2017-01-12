@@ -1,5 +1,4 @@
 use wpilib::wpilib_hal::*;
-use std::ffi;
 
 pub trait Robot: Sized {
     fn run(self);
