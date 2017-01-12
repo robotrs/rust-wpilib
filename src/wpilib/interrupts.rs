@@ -1,6 +1,6 @@
 use wpilib::wpilib_hal::*;
 use wpilib::hal_call::HalResult;
-use std::mem;
+use std::{mem, os};
 
 #[repr(u32)]
 #[derive(Copy, Clone, Debug)]
@@ -27,12 +27,14 @@ pub fn allocate_interrupts(watcher: bool) -> HalResult<HAL_InterruptHandle> {
 }
 
 pub fn request_interrupts_async(handler: HAL_InterruptHandlerFunction,
-                                param: *mut (),
+                                param: *mut os::raw::c_void,
                                 port_handle: HAL_Handle,
                                 analog_trigger_type: AnalogTriggerType)
                                 -> HalResult<HAL_InterruptHandle> {
     let handle = allocate_interrupts(false)?;
     hal_call!(HAL_RequestInterrupts(handle, port_handle, mem::transmute(analog_trigger_type)))?;
+    setup_source_edge(port_handle, true, false);
+    hal_call!(HAL_AttachInterruptHandler(handle, handler, param))?;
     Ok(handle)
 }
 
