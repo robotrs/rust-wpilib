@@ -30,3 +30,6 @@ pub use self::digital_output::DigitalOutput;
 
 mod encoder;
 pub use self::encoder::Encoder;
+
+mod pdp;
+pub use self::pdp::PowerDistributionPanel;
