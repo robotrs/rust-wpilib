@@ -13,13 +13,16 @@ pub use self::driverstation::DriverStation;
 mod throttler;
 pub use self::throttler::Throttler;
 
+/// Useful FPGA functions
 pub mod fpga;
 
 mod timer;
 pub use self::timer::*;
 
+/// Interrupt wrapper functions
 pub mod interrupts;
 
+/// Sensor info funcitons
 pub mod sensor;
 
 mod digital_input;
@@ -34,6 +37,7 @@ pub use self::encoder::Encoder;
 mod pdp;
 pub use self::pdp::PowerDistributionPanel;
 
+/// Functions for information about the robot's state that are not contained anywhere else.
 pub mod robot_state;
 
 mod analog_input;
