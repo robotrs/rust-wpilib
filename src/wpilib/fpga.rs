@@ -15,6 +15,7 @@ pub fn get_time_us() -> u64 {
     hal_call!(HAL_GetFPGATime()).unwrap()
 }
 
+/// Is the button on the RoboRIO pressed down?
 pub fn user_button_down() -> bool {
     hal_call!(HAL_GetFPGAButton()).unwrap() != 0
 }

@@ -3,7 +3,6 @@ use wpilib::hal_call::*;
 use wpilib::Throttler;
 
 use std::{thread, time, mem, ffi, sync};
-// use std::sync::{Arc, Condvar, Mutex, Once, ONCE_INIT};
 
 use atom::Atom;
 
@@ -20,6 +19,7 @@ struct Joysticks {
 }
 
 #[derive(Debug)]
+/// The robot's state
 pub enum RobotState {
     Disabled,
     Autonomous,
@@ -30,11 +30,18 @@ pub enum RobotState {
 
 type DSBuffer = Box<(Joysticks, HAL_ControlWord)>;
 
+/// An interface to the driver station, FMS, and joysticks
 pub struct DriverStation {
     data: sync::Arc<Atom<DSBuffer>>,
     joysticks: Joysticks,
+
+    /// The state that the robot is currently in.
     pub state: RobotState,
+
+    /// Whether or not the robot is attached to the FMS.
     pub fms_attached: bool,
+
+    /// Whether or not the robot has connection to the driver station.
     pub ds_attached: bool,
 
     report_throttler: Throttler<f64>,
@@ -48,6 +55,7 @@ static CREATE_DS: sync::Once = sync::ONCE_INIT;
 static mut DRIVER_STATION: *mut DriverStation = 0 as *mut DriverStation;
 
 #[derive(Debug, Copy, Clone)]
+/// Some error involving joysticks
 pub enum JoystickError {
     JoystickDNE,
     ChannelUnplugged,
@@ -55,6 +63,7 @@ pub enum JoystickError {
 }
 
 #[derive(Debug, Copy, Clone)]
+/// An alliance, red or blue
 pub enum AllianceId {
     Red,
     Blue,
@@ -196,6 +205,7 @@ impl DriverStation {
         }
     }
 
+    /// Get an axis on a joystick, in the range of [-1, 1].
     pub fn get_joystick_axis(&mut self, stick: usize, axis: usize) -> Result<f32, JoystickError> {
         self.update_data();
 
@@ -214,6 +224,7 @@ impl DriverStation {
         }
     }
 
+    /// Get the position of a POV switch, in degrees.
     pub fn get_joystick_pov(&mut self, stick: usize, pov: usize) -> Result<i16, JoystickError> {
         self.update_data();
 
@@ -232,6 +243,7 @@ impl DriverStation {
         }
     }
 
+    /// Get the state of a button on a joystick.
     pub fn get_joystick_button(&mut self,
                                stick: usize,
                                button: usize)
@@ -255,6 +267,7 @@ impl DriverStation {
         }
     }
 
+    /// Get the alliance the robot is on.
     pub fn get_alliance(&self) -> HalResult<AllianceId> {
         match hal_call!(HAL_GetAllianceStation())? {
             HAL_AllianceStationID::HAL_AllianceStationID_kRed1 |
@@ -266,6 +279,7 @@ impl DriverStation {
         }
     }
 
+    /// Get the id for the station the driver station is at, as an integer.
     pub fn get_station(&self) -> HalResult<i32> {
         match hal_call!(HAL_GetAllianceStation())? {
             HAL_AllianceStationID::HAL_AllianceStationID_kRed1 |

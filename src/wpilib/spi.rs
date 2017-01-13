@@ -4,6 +4,7 @@ use std::{mem, ptr};
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+/// Some SPI port on the RoboRIO
 pub enum SpiPort {
     Onboard0 = 0,
     Onboard1 = 1,
@@ -12,11 +13,14 @@ pub enum SpiPort {
     MXP = 4,
 }
 
+/// An interface to the SPI bus
 pub struct SpiInterface {
     port: i32,
 }
 
 impl SpiInterface {
+    /// Create a new SPI interface on the specified port, returning an error if the initialization
+    /// fails.
     pub fn new(port: SpiPort) -> HalResult<SpiInterface> {
         let port = port as i32;
         hal_call!(HAL_InitializeSPI(port))?;
@@ -26,6 +30,9 @@ impl SpiInterface {
         Ok(SpiInterface { port: port })
     }
 
+    /// Do a transaction on the SPI interface. `send` and `receive` must have the same length or
+    /// the transaction will fail. Return the number of bytes read, or `None` if the transaction
+    /// failed.
     pub fn transaction(&mut self, send: &[u8], receive: &mut [u8]) -> Option<i32> {
         if send.len() != receive.len() {
             return None;
@@ -43,7 +50,8 @@ impl SpiInterface {
         }
     }
 
-    /// Returns the number of bytes written
+    /// Write to the SPI interface and return the number of bytes written, or `None` for a failed
+    /// write.
     pub fn write(&mut self, data: &[u8]) -> Option<i32> {
         let result = unsafe {
             HAL_WriteSPI(self.port,
