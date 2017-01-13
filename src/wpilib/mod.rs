@@ -18,8 +18,6 @@ pub mod fpga;
 mod timer;
 pub use self::timer::*;
 
-pub mod interrupts;
-
 pub mod sensor;
 
 mod digital_input;
@@ -41,3 +39,6 @@ pub use self::analog_input::AnalogInput;
 
 mod spi;
 pub use self::spi::SpiInterface;
+
+mod interrupt;
+pub use self::interrupt::Interrupt;

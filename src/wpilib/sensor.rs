@@ -1,12 +1,5 @@
 use wpilib::wpilib_hal::*;
 
-pub enum WaitResult {
-    Timeout = 0x0,
-    RisingEdge = 0x1,
-    FallingEdge = 0x100,
-    Both = 0x101,
-}
-
 pub fn num_digital_channels() -> i32 {
     unsafe { HAL_GetNumDigitalChannels() }
 }
