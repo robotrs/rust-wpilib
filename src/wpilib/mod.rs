@@ -45,3 +45,5 @@ pub use self::spi::SpiInterface;
 
 mod interrupt;
 pub use self::interrupt::Interrupt;
+
+pub mod usage;

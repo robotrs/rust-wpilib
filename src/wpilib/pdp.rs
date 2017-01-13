@@ -1,5 +1,6 @@
 use wpilib::wpilib_hal::*;
 use wpilib::hal_call::*;
+use wpilib::usage::*;
 use wpilib::sensor;
 
 /// An interface to the PDP for getting information about robot power.
@@ -11,6 +12,7 @@ impl PowerDistributionPanel {
     /// Create a new PDP interface on the specified module.
     pub fn new(module: i32) -> HalResult<PowerDistributionPanel> {
         hal_call!(HAL_InitializePDP(module))?;
+        report_usage(ResourceType::PDP, module);
         Ok(PowerDistributionPanel { module: module })
     }
 

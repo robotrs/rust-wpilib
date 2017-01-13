@@ -1,7 +1,8 @@
 use wpilib::wpilib_hal::*;
 use wpilib::hal_call::*;
 use wpilib::sensor;
-use std::{ptr, thread, time};
+use wpilib::usage::*;
+use std::{thread, time};
 
 /// An analog input on the RoboRIO
 pub struct AnalogInput {
@@ -20,9 +21,7 @@ impl AnalogInput {
 
         let port = hal_call!(HAL_InitializeAnalogInputPort(HAL_GetPort(channel)))?;
 
-        unsafe {
-            HAL_Report(6, channel, 0, ptr::null());
-        }
+        report_usage(ResourceType::AnalogChannel, channel);
 
         Ok(AnalogInput {
             channel: channel,

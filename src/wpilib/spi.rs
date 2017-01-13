@@ -1,6 +1,7 @@
 use wpilib::wpilib_hal::*;
 use wpilib::hal_call::*;
-use std::{mem, ptr};
+use wpilib::usage::*;
+use std::mem;
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -24,9 +25,9 @@ impl SpiInterface {
     pub fn new(port: SpiPort) -> HalResult<SpiInterface> {
         let port = port as i32;
         hal_call!(HAL_InitializeSPI(port))?;
-        unsafe {
-            HAL_Report(tResourceType::kResourceType_SPI as i32, 0, 0, ptr::null());
-        }
+
+        report_usage(ResourceType::SPI, port);
+
         Ok(SpiInterface { port: port })
     }
 

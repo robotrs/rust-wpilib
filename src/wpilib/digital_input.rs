@@ -1,7 +1,7 @@
 use wpilib::wpilib_hal::*;
 use wpilib::hal_call::*;
 use wpilib::sensor;
-use std::ptr;
+use wpilib::usage::*;
 
 /// A digital input used to read boolean sensors from the RoboRIO.
 pub struct DigitalInput {
@@ -18,9 +18,9 @@ impl DigitalInput {
         }
 
         let handle = hal_call!(HAL_InitializeDIOPort(HAL_GetPort(channel), true as i32))?;
-        unsafe {
-            HAL_Report(13, channel, 0, ptr::null());
-        }
+        
+        report_usage(ResourceType::DigitalInput, channel);
+
         Ok(DigitalInput {
             channel: channel,
             handle: handle,

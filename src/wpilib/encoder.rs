@@ -1,6 +1,7 @@
 use wpilib::wpilib_hal::*;
 use wpilib::hal_call::*;
 use wpilib::digital_input::DigitalInput;
+use wpilib::usage::*;
 use std::ptr;
 use std::mem;
 
@@ -45,9 +46,9 @@ impl Encoder {
             source_index: None,
             encoder: handle,
         };
-        unsafe {
-            HAL_Report(18, encoder.get_fpga_index()?, encoding as i32, ptr::null());
-        }
+
+        report_usage_extras(ResourceType::Encoder, encoder.get_fpga_index()?, encoding as i32, ptr::null());
+
         Ok(encoder)
     }
 
