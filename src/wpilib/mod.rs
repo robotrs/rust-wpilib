@@ -38,3 +38,6 @@ pub mod robot_state;
 
 mod analog_input;
 pub use self::analog_input::AnalogInput;
+
+mod spi;
+pub use self::spi::SpiInterface;
