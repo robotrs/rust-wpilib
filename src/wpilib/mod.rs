@@ -50,3 +50,9 @@ mod pwm;
 pub use self::pwm::Pwm;
 
 pub mod usage;
+
+mod speed_controller;
+pub use self::speed_controller::*;
+
+mod pwm_speed_controller;
+pub use self::pwm_speed_controller::*;
