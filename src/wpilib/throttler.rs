@@ -1,17 +1,14 @@
 // use std::ops::Add;
 
 /// Handles only doing some task once per set interval.
-pub struct Throttler<T, S = T>
-    // where T: Add<S> + PartialOrd, <T as Add<S>>::Output = T
-{
+pub struct Throttler<T, S = T> {
     next_send: T,
     interval: S,
 }
 
 // impl<T, S> Throttler<T, S>
-    // where T: Add<S> + PartialOrd, <T as Add<S>>::Output = T
-impl Throttler<f64, f64>
-{
+// where T: Add<S> + PartialOrd, <T as Add<S>>::Output = T
+impl Throttler<f64, f64> {
     /// Create a new throttler.
     pub fn new(now: f64, interval: f64) -> Throttler<f64, f64> {
         Throttler {

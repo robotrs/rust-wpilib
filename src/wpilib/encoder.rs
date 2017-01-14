@@ -47,7 +47,10 @@ impl Encoder {
             encoder: handle,
         };
 
-        report_usage_extras(ResourceType::Encoder, encoder.get_fpga_index()?, encoding as i32, ptr::null());
+        report_usage_extras(ResourceType::Encoder,
+                            encoder.get_fpga_index()?,
+                            encoding as i32,
+                            ptr::null());
 
         Ok(encoder)
     }

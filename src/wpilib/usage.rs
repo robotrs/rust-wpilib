@@ -81,7 +81,10 @@ pub fn report_usage(resource: ResourceType, instance: i32) {
 }
 
 /// Just a safe wrapper around HAL_Report
-pub fn report_usage_extras(resource: ResourceType, instance: i32, context: i32, feature: *const raw::c_char) {
+pub fn report_usage_extras(resource: ResourceType,
+                           instance: i32,
+                           context: i32,
+                           feature: *const raw::c_char) {
     unsafe {
         HAL_Report(resource as i32, instance, context, feature);
     }

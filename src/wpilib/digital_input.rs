@@ -18,7 +18,7 @@ impl DigitalInput {
         }
 
         let handle = hal_call!(HAL_InitializeDIOPort(HAL_GetPort(channel), true as i32))?;
-        
+
         report_usage(ResourceType::DigitalInput, channel);
 
         Ok(DigitalInput {

@@ -23,7 +23,9 @@ impl Pwm {
     /// Create a new PWM interface on the specified channel, returning an error if initialization
     /// fails.
     pub fn new(channel: i32) -> HalResult<Pwm> {
-        if !sensor::check_pwm_channel(channel) { return Err(0); }
+        if !sensor::check_pwm_channel(channel) {
+            return Err(0);
+        }
 
         let handle = hal_call!(HAL_InitializePWMPort(HAL_GetPort(channel)))?;
         hal_call!(HAL_SetPWMDisabled(handle))?;
@@ -49,7 +51,13 @@ impl Pwm {
     /// * `center` - the center
     /// * `deadband_min` - the low end of the deadband
     /// * `min` - the minimum pulse width
-    pub fn set_config(&mut self, max: f64, deadband_max: f64, center: f64, deadband_min: f64, min: f64) -> HalResult<()> {
+    pub fn set_config(&mut self,
+                      max: f64,
+                      deadband_max: f64,
+                      center: f64,
+                      deadband_min: f64,
+                      min: f64)
+                      -> HalResult<()> {
         hal_call!(HAL_SetPWMConfig(self.handle, max, deadband_max, center, deadband_min, min))
     }
 
@@ -61,7 +69,13 @@ impl Pwm {
     /// * `center` - the center
     /// * `deadband_min` - the low end of the deadband
     /// * `min` - the minimum pulse width
-    pub fn set_config_raw(&mut self, max: i32, deadband_max: i32, center: i32, deadband_min: i32, min: i32) -> HalResult<()> {
+    pub fn set_config_raw(&mut self,
+                          max: i32,
+                          deadband_max: i32,
+                          center: i32,
+                          deadband_min: i32,
+                          min: i32)
+                          -> HalResult<()> {
         hal_call!(HAL_SetPWMConfigRaw(self.handle, max, deadband_max, center, deadband_min, min))
     }
 
@@ -77,7 +91,6 @@ impl Pwm {
         hal_call!(HAL_SetPWMSpeed(self.handle, speed))
     }
 
-
     /// Get the most recently set speed.
     pub fn get_speed(&self) -> HalResult<f64> {
         hal_call!(HAL_GetPWMSpeed(self.handle))
@@ -87,7 +100,7 @@ impl Pwm {
     pub fn set_raw(&mut self, value: u16) -> HalResult<()> {
         hal_call!(HAL_SetPWMRaw(self.handle, value as i32))
     }
-    
+
     /// Get the previously-set PWM value in hardware terms (usually 0-2000)
     pub fn get_raw(&self) -> HalResult<u16> {
         Ok(hal_call!(HAL_GetPWMRaw(self.handle))? as u16)
