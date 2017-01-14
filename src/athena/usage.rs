@@ -1,6 +1,6 @@
 #![allow(missing_docs)]
 
-use wpilib::wpilib_hal::*;
+use athena::wpilib_hal::*;
 use std::ptr;
 use std::os::raw;
 

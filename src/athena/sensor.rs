@@ -1,4 +1,4 @@
-use wpilib::wpilib_hal::*;
+use athena::wpilib_hal::*;
 
 /// The number of DIOs on the RoboRIO.
 pub fn num_digital_channels() -> i32 {

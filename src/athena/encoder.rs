@@ -1,7 +1,7 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
-use wpilib::digital_input::DigitalInput;
-use wpilib::usage::*;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
+use athena::digital_input::DigitalInput;
+use athena::usage::*;
 use std::ptr;
 use std::mem;
 

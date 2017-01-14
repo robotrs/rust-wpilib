@@ -1,4 +1,4 @@
-use wpilib::wpilib_hal::*;
+use athena::wpilib_hal::*;
 use std::{ffi, fmt};
 
 #[derive(Copy, Clone)]

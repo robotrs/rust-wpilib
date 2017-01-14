@@ -1,7 +1,7 @@
-use wpilib::speed_controller::SpeedController;
-use wpilib::pwm::*;
-use wpilib::hal_call::*;
-use wpilib::usage::*;
+use athena::speed_controller::SpeedController;
+use athena::pwm::*;
+use athena::hal_call::*;
+use athena::usage::*;
 
 /// A PWM-based speed controller, like the VictorSP.
 ///

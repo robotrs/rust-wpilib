@@ -1,5 +1,5 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
 
 /// Is the robot browned out?
 pub fn is_browned_out() -> HalResult<bool> {

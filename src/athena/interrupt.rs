@@ -1,6 +1,6 @@
-use wpilib::DigitalInput;
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
+use athena::DigitalInput;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
 use std::sync::Arc;
 use std::os::raw;
 use std::mem;

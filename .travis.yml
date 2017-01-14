@@ -29,4 +29,6 @@ matrix:
   allow_failures:
     - rust: nightly
 
-script: cargo build --verbose --target=arm-unknown-linux-gnueabi
+script:
+  - cargo build --verbose --target=arm-unknown-linux-gnueabi
+  - cargo test

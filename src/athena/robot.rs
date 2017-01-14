@@ -1,4 +1,4 @@
-use wpilib::wpilib_hal::*;
+use athena::wpilib_hal::*;
 
 /// The base class from which all robots should be derived.
 ///

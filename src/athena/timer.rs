@@ -1,4 +1,4 @@
-use wpilib::fpga;
+use athena::fpga;
 
 /// Gets the FPGA time in seconds since the FPGA reset
 pub fn get_time_seconds() -> f64 {

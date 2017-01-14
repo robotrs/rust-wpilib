@@ -1,6 +1,6 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
-use wpilib::Throttler;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
+use athena::Throttler;
 
 use std::{thread, time, mem, ffi, sync};
 

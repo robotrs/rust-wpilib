@@ -1,6 +1,6 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
-use wpilib::usage::*;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
+use athena::usage::*;
 use std::mem;
 
 #[repr(C)]

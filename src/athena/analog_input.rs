@@ -1,7 +1,7 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
-use wpilib::sensor;
-use wpilib::usage::*;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
+use athena::sensor;
+use athena::usage::*;
 use std::{thread, time};
 
 /// An analog input on the RoboRIO

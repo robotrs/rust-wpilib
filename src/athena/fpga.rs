@@ -1,5 +1,5 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
+use athena::hal_call::*;
+use athena::wpilib_hal::*;
 
 /// Gets the FPGA version
 pub fn version() -> i32 {

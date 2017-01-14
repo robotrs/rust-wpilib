@@ -8,6 +8,15 @@
 
 extern crate atom;
 
+#[cfg(target_arch = "arm")]
 #[macro_use]
-mod wpilib;
-pub use wpilib::*;
+mod athena;
+
+#[cfg(target_arch = "arm")]
+pub use athena::*;
+
+#[cfg(not(target_arch = "arm"))]
+mod sim;
+
+#[cfg(not(target_arch = "arm"))]
+pub use sim::*;

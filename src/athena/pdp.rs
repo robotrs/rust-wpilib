@@ -1,7 +1,7 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
-use wpilib::usage::*;
-use wpilib::sensor;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
+use athena::usage::*;
+use athena::sensor;
 
 /// An interface to the PDP for getting information about robot power.
 pub struct PowerDistributionPanel {

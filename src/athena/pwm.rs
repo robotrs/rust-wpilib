@@ -1,7 +1,7 @@
-use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
-use wpilib::usage::*;
-use wpilib::sensor;
+use athena::wpilib_hal::*;
+use athena::hal_call::*;
+use athena::usage::*;
+use athena::sensor;
 
 /// A PWM interface, either on DIO 0-9 or MXP 10-19. PWM is handled by the FPGA, and using this
 /// class is very fast.
