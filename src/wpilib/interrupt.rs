@@ -84,7 +84,7 @@ impl Interrupt {
             0x1 => Ok(WaitResult::RisingEdge),
             0x100 => Ok(WaitResult::FallingEdge),
             0x101 => Ok(WaitResult::Both),
-            _ => Err(0),
+            _ => Err(HalError(0)),
         }
     }
 }

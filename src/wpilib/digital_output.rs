@@ -15,7 +15,7 @@ impl DigitalOutput {
     /// fails.
     pub fn new(channel: i32) -> HalResult<DigitalOutput> {
         if !sensor::check_digital_channel(channel) {
-            return Err(0);
+            return Err(HalError(0));
         }
 
         let handle = hal_call!(HAL_InitializeDIOPort(HAL_GetPort(channel), false as i32))?;

@@ -34,7 +34,7 @@ impl PowerDistributionPanel {
     /// Get the current on a specific channel on the PDP, in amps.
     pub fn get_current(&self, channel: i32) -> HalResult<f64> {
         if !sensor::check_pdp_channel(channel) {
-            return Err(0);
+            return Err(HalError(0));
         }
 
         hal_call!(HAL_GetPDPChannelCurrent(self.module, channel))

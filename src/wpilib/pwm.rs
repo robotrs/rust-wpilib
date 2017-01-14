@@ -24,7 +24,7 @@ impl Pwm {
     /// fails.
     pub fn new(channel: i32) -> HalResult<Pwm> {
         if !sensor::check_pwm_channel(channel) {
-            return Err(0);
+            return Err(HalError(0));
         }
 
         let handle = hal_call!(HAL_InitializePWMPort(HAL_GetPort(channel)))?;
