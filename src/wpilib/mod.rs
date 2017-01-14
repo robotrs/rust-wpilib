@@ -46,4 +46,7 @@ pub use self::spi::SpiInterface;
 mod interrupt;
 pub use self::interrupt::Interrupt;
 
+mod pwm;
+pub use self::pwm::Pwm;
+
 pub mod usage;
