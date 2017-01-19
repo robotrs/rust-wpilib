@@ -18,7 +18,7 @@ struct Joysticks {
     descriptor: [HAL_JoystickDescriptor; MAX_JOYSTICK_PORTS],
 }
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 /// The robot's state
 pub enum RobotState {
     Disabled,
@@ -35,14 +35,9 @@ pub struct DriverStation {
     data: sync::Arc<Atom<DSBuffer>>,
     joysticks: Joysticks,
 
-    /// The state that the robot is currently in.
-    pub state: RobotState,
-
-    /// Whether or not the robot is attached to the FMS.
-    pub fms_attached: bool,
-
-    /// Whether or not the robot has connection to the driver station.
-    pub ds_attached: bool,
+    state: RobotState,
+    fms_attached: bool,
+    ds_attached: bool,
 
     report_throttler: Throttler<f64>,
 
@@ -291,7 +286,7 @@ impl DriverStation {
         }
     }
 
-    /// Waits for a new driver station packet
+    /// Wait for a new driver station packet.
     pub fn wait_for_data(&self) {
         let &(ref wait_lock, ref wait_cond) = &*self.waiter;
         let mut has_data = wait_lock.lock().unwrap();
@@ -315,6 +310,24 @@ impl DriverStation {
             }
         }
         true
+    }
+
+    /// Does the robot have connection to the FMS?
+    pub fn is_fms_attached(&mut self) -> bool {
+        self.update_data();
+        self.fms_attached
+    }
+
+    /// Does the robot have connection to the driver station?
+    pub fn is_ds_attached(&mut self) -> bool {
+        self.update_data();
+        self.fms_attached
+    }
+
+    /// Get the state of the robot.
+    pub fn get_state(&mut self) -> RobotState {
+        self.update_data();
+        self.state
     }
 }
 
