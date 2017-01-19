@@ -10,7 +10,3 @@ atom="*"
 [lib]
 name = "wpilib"
 path = "src/lib.rs"
-
-[[bin]]
-name = "test"
-path = "src/main.rs"
