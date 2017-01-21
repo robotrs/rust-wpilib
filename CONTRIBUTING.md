@@ -47,7 +47,7 @@ process:
  7. Address the feedback and commit and push the new changes.
  8. Repeat steps 4-6 until there are requested changes left on the PR and at least one core contributor has approved of
     the changes.
- 9. Merge the PR into master.
+ 9. A core contributor will merge the PR into the master branch, using the _squash_ option.
 
 A core contributor must still go through the code review process to get code merged into the repository and should not
 push directly to master.
