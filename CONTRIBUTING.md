@@ -2,12 +2,12 @@
 Thank for your interest in this project! If you want to contribute, there are a few things you need to know.
 
 ## Project goals
-This repository is reserved strictly for the hardware side of WPILib. That said, while we do expect to have feature
-parity, that does not mean that this repository will contain an exact equivalent to everything in WPILib. The APIs will
-be mostly rewritten to fit better with Rust, and in general the library will be more lean. On another note, controls
-code, IPC libraries, and the like should not be in this repository. If the Rust for Robotics organization doesn't have
-a repository covering a feature you want, contact one of the core contributors and we will discuss the possibility of
-creating a new repository (or putting it into an existing one).
+This repository is reserved strictly for the hardware side of WPILib (and accompanying simulation code). That said,
+while we do expect to have feature parity, that does not mean that this repository will contain an exact equivalent to
+everything in WPILib. The APIs will be mostly rewritten to fit better with Rust, and in general the library will be
+more lean. On another note, controls code, IPC libraries, and the like should not be in this repository. If the Rust
+for Robotics organization doesn't have a repository covering a feature you want, contact one of the core contributors
+and we will discuss the possibility of creating a new repository (or putting it into an existing one).
 
 Also note that this repository is in a pre-alpha state. As such, breaking changes will be common and expected until we
 are at a version v1.0.0.
