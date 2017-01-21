@@ -1,6 +1,17 @@
 # Contribution Guidelines
 Thank for your interest in this project! If you want to contribute, there are a few things you need to know.
 
+## Project goals
+This repository is reserved strictly for the hardware side of WPILib. That said, while we do expect to have feature
+parity, that does not mean that this repository will contain an exact equivalent to everything in WPILib. The APIs will
+be mostly rewritten to fit better with Rust, and in general the library will be more lean. On another note, controls
+code, IPC libraries, and the like should not be in this repository. If the Rust for Robotics organization doesn't have
+a repository covering a feature you want, contact one of the core contributors and we will discuss the possibility of
+creating a new repository (or putting it into an existing one).
+
+Also note that this repository is in a pre-alpha state. As such, breaking changes will be common and expected until we
+are at a version v1.0.0.
+
 ## What to contribute
  - Bug reports: If you find a bug in this library, please report it to the GitHub issue tracker! Chances are, if you hit
    a bug, someone else might - and if we know about the bug, we'll be able to fix it.
@@ -11,8 +22,9 @@ Thank for your interest in this project! If you want to contribute, there are a 
     - The feature request is left open for discussion but not explicitly approved or dismissed.
     - The feature request is approved and assigned a <feature> tag.
    A good feature request is for a single feature and should be as atomic as possible. We will usually be less receptive
-   to feature requests that involve large or breaking changes in the library. It should also fit within the project's
-   goals - for example, don't ask for a feature in rust-wpilib that better belongs in the controls project.
+   to feature requests that involve large changes in the library, especially if they have not been discussed in depth
+   previously. It should also fit within the project's scope and goals - don't request a feature in rust-wpilib that
+   better fits the controls project.
  - Documentation: If you are willing to document code, everyone using this library will be forever in your debt.
    Seriously. You can never have too much documentation. We use `rustdoc` for documentation, so all you have to do is
    write doc comments - look [here](http://rustbyexample.com/meta/doc.html) for more information.
