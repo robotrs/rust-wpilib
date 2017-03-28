@@ -1,10 +1,7 @@
 #![allow(missing_docs)]
 
 use wpilib::wpilib_hal::*;
-use wpilib::hal_call::*;
 use wpilib::driverstation::*;
-
-use std::ops::*;
 
 const RUMBLE_BASE: i32 = 65535;
 
@@ -45,7 +42,7 @@ pub struct Joystick {
 }
 
 impl Joystick {
-    fn new(p: usize) -> Joystick {
+    pub fn new(p: usize) -> Joystick {
         Joystick { port: p, ds: DriverStation::instance(), outputs: 0i64, left_rumble: 0i32, right_rumble: 0i32 }
     }
 }
@@ -107,28 +104,28 @@ pub struct XBoxController {
 }
 
 impl XBoxController {
-    fn new(p: usize) -> XBoxController {
+    pub fn new(p: usize) -> XBoxController {
         XBoxController { port: p, ds: DriverStation::instance(), outputs: 0i64, left_rumble: 0i32, right_rumble: 0i32 }
     }
 
     //buttons
-    fn get_a_button(&mut self) -> bool {
+    pub fn get_a_button(&mut self) -> bool {
         self.get_raw_button(1)
     }
 
-    fn get_b_button(&mut self) -> bool {
+    pub fn get_b_button(&mut self) -> bool {
         self.get_raw_button(2)
     }
 
-    fn get_x_button(&mut self) -> bool {
+    pub fn get_x_button(&mut self) -> bool {
         self.get_raw_button(3)
     }
 
-    fn get_y_button(&mut self) -> bool {
+    pub fn get_y_button(&mut self) -> bool {
         self.get_raw_button(4)
     }
 
-    fn get_bumper(&mut self, side: JoystickSide) -> bool {
+    pub fn get_bumper(&mut self, side: JoystickSide) -> bool {
         if side == JoystickSide::kLeftHand {
             self.get_raw_button(5)
         } else {
@@ -136,15 +133,15 @@ impl XBoxController {
         }
     }
 
-    fn get_back_button(&mut self) -> bool {
+    pub fn get_back_button(&mut self) -> bool {
         self.get_raw_button(7)
     }
 
-    fn get_start_button(&mut self) -> bool {
+    pub fn get_start_button(&mut self) -> bool {
         self.get_raw_button(8)
     }
 
-    fn get_axis_button(&mut self, side: JoystickSide) -> bool {
+    pub fn get_axis_button(&mut self, side: JoystickSide) -> bool {
         if side == JoystickSide::kLeftHand {
             self.get_raw_button(9)
         } else {
@@ -153,7 +150,7 @@ impl XBoxController {
     }
 
     //axes
-    fn get_x(&mut self, side: JoystickSide) -> f32 {
+    pub fn get_x(&mut self, side: JoystickSide) -> f32 {
         if side == JoystickSide::kLeftHand {
             self.get_raw_axis(0)
         } else {
@@ -161,7 +158,7 @@ impl XBoxController {
         }
     }
 
-    fn get_y(&mut self, side: JoystickSide) -> f32 {
+    pub fn get_y(&mut self, side: JoystickSide) -> f32 {
         if side == JoystickSide::kLeftHand {
             self.get_raw_axis(1)
         } else {
@@ -169,7 +166,7 @@ impl XBoxController {
         }
     }
 
-    fn get_trigger(&mut self, side: JoystickSide) -> f32 {
+    pub fn get_trigger(&mut self, side: JoystickSide) -> f32 {
         if side == JoystickSide::kLeftHand {
             self.get_raw_axis(2)
         } else {
@@ -177,7 +174,7 @@ impl XBoxController {
         }
     }
 
-    fn get_dpad(&mut self) -> DPAD {
+    pub fn get_dpad(&mut self) -> DPAD {
         match self.get_pov(1) {
             0 => DPAD::Up,
             1 => DPAD::UpRight,
