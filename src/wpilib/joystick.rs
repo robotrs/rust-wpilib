@@ -1,5 +1,7 @@
 #![allow(missing_docs)]
 
+use std::ffi;
+
 use wpilib::wpilib_hal::*;
 use wpilib::driverstation::*;
 
@@ -12,7 +14,7 @@ pub enum JoystickSide {
 }
 
 #[derive(PartialEq)]
-pub enum DPAD {
+pub enum DPad {
     Neutral,
     Up,
     Down,
@@ -25,9 +27,9 @@ pub enum DPAD {
 }
 
 pub trait JoystickBase {
-    fn get_raw_axis(&mut self, axis: usize) -> f32;
-    fn get_raw_button(&mut self, button: usize) -> bool;
-    fn get_pov(&mut self, pov: usize) -> i16;
+    fn get_raw_axis(&mut self, axis: usize) -> Result<f32, JoystickError>;
+    fn get_raw_button(&mut self, button: usize) -> Result<bool, JoystickError>;
+    fn get_pov(&mut self, pov: usize) -> Result<i16, JoystickError>;
     fn set_output(&mut self, output_number: i32, value: bool);
     fn set_outputs(&mut self, value: i64);
     fn set_rumble(&mut self, side: JoystickSide, value: f32);
@@ -48,25 +50,16 @@ impl Joystick {
 }
 
 impl JoystickBase for Joystick {
-    fn get_raw_axis(&mut self, axis: usize) -> f32 {
-        match self.ds.get_joystick_axis(self.port, axis) {
-            Ok(val) => val,
-            _ => 0f32,
-        }
+    fn get_raw_axis(&mut self, axis: usize) -> Result<f32, JoystickError> {
+        self.ds.get_joystick_axis(self.port, axis)
     }
 
-    fn get_raw_button(&mut self, button: usize) -> bool {
-        match self.ds.get_joystick_button(self.port, button) {
-            Ok(val) => val,
-            _ => false,
-        }
+    fn get_raw_button(&mut self, button: usize) -> Result<bool, JoystickError> {
+        self.ds.get_joystick_button(self.port, button)
     }
 
-    fn get_pov(&mut self, pov: usize) -> i16 {
-        match self.ds.get_joystick_pov(self.port, pov) {
-            Ok(val) => val,
-            _ => -01,
-        }
+    fn get_pov(&mut self, pov: usize) -> Result<i16, JoystickError> {
+        self.ds.get_joystick_pov(self.port, pov)
     }
 
     fn set_output(&mut self, output_number: i32, value: bool) {
@@ -104,38 +97,38 @@ impl XBoxController {
     }
 
     //buttons
-    pub fn get_a_button(&mut self) -> bool {
+    pub fn get_a_button(&mut self) -> Result<bool, JoystickError> {
         self.get_raw_button(1)
     }
 
-    pub fn get_b_button(&mut self) -> bool {
+    pub fn get_b_button(&mut self) -> Result<bool, JoystickError> {
         self.get_raw_button(2)
     }
 
-    pub fn get_x_button(&mut self) -> bool {
+    pub fn get_x_button(&mut self) -> Result<bool, JoystickError> {
         self.get_raw_button(3)
     }
 
-    pub fn get_y_button(&mut self) -> bool {
+    pub fn get_y_button(&mut self) -> Result<bool, JoystickError> {
         self.get_raw_button(4)
     }
 
-    pub fn get_bumper(&mut self, side: JoystickSide) -> bool {
+    pub fn get_bumper(&mut self, side: JoystickSide) -> Result<bool, JoystickError> {
         match side {
             JoystickSide::LeftHand => self.get_raw_button(5),
             JoystickSide::RightHand => self.get_raw_button(6),
         }
     }
 
-    pub fn get_back_button(&mut self) -> bool {
+    pub fn get_back_button(&mut self) -> Result<bool, JoystickError> {
         self.get_raw_button(7)
     }
 
-    pub fn get_start_button(&mut self) -> bool {
+    pub fn get_start_button(&mut self) -> Result<bool, JoystickError> {
         self.get_raw_button(8)
     }
 
-    pub fn get_axis_button(&mut self, side: JoystickSide) -> bool {
+    pub fn get_axis_button(&mut self, side: JoystickSide) -> Result<bool, JoystickError> {
         match side {
             JoystickSide::LeftHand => self.get_raw_button(9),
             JoystickSide::RightHand => self.get_raw_button(10),
@@ -143,62 +136,68 @@ impl XBoxController {
     }
 
     //axes
-    pub fn get_x(&mut self, side: JoystickSide) -> f32 {
+    pub fn get_x(&mut self, side: JoystickSide) -> Result<f32, JoystickError> {
         match side {
             JoystickSide::LeftHand => self.get_raw_axis(0),
             JoystickSide::RightHand => self.get_raw_axis(4),
         }
     }
 
-    pub fn get_y(&mut self, side: JoystickSide) -> f32 {
+    pub fn get_y(&mut self, side: JoystickSide) -> Result<f32, JoystickError> {
         match side {
             JoystickSide::LeftHand => self.get_raw_axis(1),
             JoystickSide::RightHand => self.get_raw_axis(5),
         }
     }
 
-    pub fn get_trigger(&mut self, side: JoystickSide) -> f32 {
+    pub fn get_trigger(&mut self, side: JoystickSide) -> Result<f32, JoystickError> {
         match side {
             JoystickSide::LeftHand => self.get_raw_axis(2),
             JoystickSide::RightHand => self.get_raw_axis(3),
         }
     }
 
-    pub fn get_dpad(&mut self) -> DPAD {
+    pub fn get_dpad(&mut self) -> Result<DPad, JoystickError> {
         match self.get_pov(1) {
-            0 => DPAD::Up,
-            1 => DPAD::UpRight,
-            2 => DPAD::Right,
-            3 => DPAD::DownRight,
-            4 => DPAD::Down,
-            5 => DPAD::DownLeft,
-            6 => DPAD::Left,
-            7 => DPAD::UpLeft,
-            _ => DPAD::Neutral,
+            Ok(val) if val == 0 => Ok(DPad::Up),
+            Ok(val) if val == 1 => Ok(DPad::UpRight),
+            Ok(val) if val == 2 => Ok(DPad::Right),
+            Ok(val) if val == 3 => Ok(DPad::DownRight),
+            Ok(val) if val == 4 => Ok(DPad::Down),
+            Ok(val) if val == 5 => Ok(DPad::DownLeft),
+            Ok(val) if val == 6 => Ok(DPad::Left),
+            Ok(val) if val == 7 => Ok(DPad::UpLeft),
+            Ok(val) if val == -01 => Ok(DPad::Neutral),
+            Ok(_) => {
+                let mut message: String = String::from("Received invalid POV value on XBox controller at port ");
+                message += self.port.to_string().as_str();
+                unsafe {
+                    HAL_SendError(false as i32,
+                                  1,
+                                  false as i32,
+                                  ffi::CString::new(message.as_str()).unwrap().into_raw(),
+                                  ffi::CString::new("").unwrap().into_raw(),
+                                  ffi::CString::new("").unwrap().into_raw(),
+                                  true as i32);
+                }
+                Ok(DPad::Neutral)
+            },
+            Err(e) => Err(e),
         }
     }
  }
 
 impl JoystickBase for XBoxController {
-    fn get_raw_axis(&mut self, axis: usize) -> f32 {
-        match self.ds.get_joystick_axis(self.port, axis) {
-            Ok(val) => val,
-            _ => 0f32,
-        }
+    fn get_raw_axis(&mut self, axis: usize) -> Result<f32, JoystickError> {
+        self.ds.get_joystick_axis(self.port, axis)
     }
 
-    fn get_raw_button(&mut self, button: usize) -> bool {
-        match self.ds.get_joystick_button(self.port, button) {
-            Ok(val) => val,
-            _ => false,
-        }
+    fn get_raw_button(&mut self, button: usize) -> Result<bool, JoystickError> {
+        self.ds.get_joystick_button(self.port, button)
     }
 
-    fn get_pov(&mut self, pov: usize) -> i16 {
-        match self.ds.get_joystick_pov(self.port, pov) {
-            Ok(val) => val,
-            _ => -01,
-        }
+    fn get_pov(&mut self, pov: usize) -> Result<i16, JoystickError> {
+        self.ds.get_joystick_pov(self.port, pov)
     }
 
     fn set_output(&mut self, output_number: i32, value: bool) {
