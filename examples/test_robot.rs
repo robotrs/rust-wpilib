@@ -7,8 +7,9 @@ struct TestRobot;
 impl Robot for TestRobot {
     fn run(self) {
         println!("Running!");
+        let stick = Joystick::new(0);
         loop {
-            println!("{:?}", DriverStation::instance().get_joystick_axis(0, 1));
+            println!("{:?}", stick.get_raw_axis(1));
             println!("{:?}", fpga::get_time_us());
         }
     }
