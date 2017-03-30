@@ -61,8 +61,7 @@ impl I2cInterface {
         }
     }
 
-    /// helper function to read from i2c
-    /// to use, pass the size of the expected message
+    /// helper function to read from i2c using the size of the expected message
     /// returns a string with capacity of receive size
     pub fn read(&self, receive_size: i32) -> Result<String, I2cState> {
         let mut container: Vec<u8> = vec![];
@@ -83,7 +82,7 @@ impl I2cInterface {
 
     /// helper function to write to i2c
     /// to use, pass the message and its size
-    /// note: analogous to write_bulk on wpilib proper
+    /// note: analogous to WriteBulk on wpilib proper
     pub fn write(&self, sent: &str, send_size: i32) -> Result<bool, I2cState> {
         let send_string = String::from(sent);
         let send_bytes: *mut u8 = send_string.into_bytes().as_mut_ptr();
