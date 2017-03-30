@@ -56,3 +56,7 @@ pub use self::speed_controller::*;
 
 mod pwm_speed_controller;
 pub use self::pwm_speed_controller::*;
+
+/// all i2c modules
+mod i2c;
+pub use self::i2c::*;
