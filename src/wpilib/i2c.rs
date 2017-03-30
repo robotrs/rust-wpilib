@@ -51,7 +51,6 @@ impl I2cInterface {
                     match String::from_utf8(slice::from_raw_parts(receive_bytes, receive_size as usize).to_vec()) {
                         Ok(msg) => Ok(msg),
                         _ => {
-                            //DriverStation::instance().report_throttled("{:?}", e);
                             Err(I2cState::InvalidReceiveString)
                         },
                     }
