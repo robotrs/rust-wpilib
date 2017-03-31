@@ -123,8 +123,8 @@ impl BufferedPcm {
 
     /// Flush the cached values to CAN.
     pub fn flush(&self) -> Result<(), CanError> {
-        let data = self.buffer.lock().unwrap();
-        hal_call!(HAL_SetAllSolenoids(self.module, *data as i32)).map_err(From::from)
+        let data = *self.buffer.lock().unwrap();
+        hal_call!(HAL_SetAllSolenoids(self.module, data as i32)).map_err(From::from)
     }
 }
 
