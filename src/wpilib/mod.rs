@@ -60,3 +60,9 @@ pub use self::pwm_speed_controller::*;
 /// defines all joystick related traits and structs
 pub mod joystick;
 pub use self::joystick::*;
+
+mod can;
+pub use self::can::*;
+
+mod pcm;
+pub use self::pcm::*;
