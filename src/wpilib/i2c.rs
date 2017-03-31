@@ -60,10 +60,10 @@ impl I2cInterface {
                     }
                 }
             },
-            false => match status {
-                -1 => Err(I2cState::TransferAbort),
-                _ => Err(I2cState::IOError),
-            },
+            false => Err(match status {
+                -1 => I2cState::TransferAbort,
+                _ => I2cState::IOError,
+            }),
         }
     }
 
