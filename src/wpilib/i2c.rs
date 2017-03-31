@@ -1,7 +1,5 @@
 use wpilib::wpilib_hal::*;
 
-use std::slice;
-
 /// Helper enum that describes one of two possible locations on the roborio for i2c devices
 #[derive(Copy, Clone)]
 pub enum I2cPort {
@@ -12,7 +10,7 @@ pub enum I2cPort {
 }
 
 /// Describes various errored or otherwise special cases that may result from an i2c transaction
-pub enum I2cState {
+pub enum I2cError {
     // TODO find is there is any way to get more i2c transaction information out of HAl than just
     // success or failure
 
@@ -20,10 +18,8 @@ pub enum I2cState {
     IOError,
     /// Indicates when no string, or an invalid string was received from the i2c transaction
     InvalidReceiveString,
-    /// HAL i2c functions return -1 on abort
+    /// Indicates a situation where the connection was specifically aborted
     TransferAbort,
-    /// HAL i2c functions return >= 0 when successful
-    Success,
 }
 
 /// Struct for sending and receiving data over i2c
@@ -39,70 +35,45 @@ impl I2cInterface {
         I2cInterface { port: p, device_address: addr }
     }
 
-    /// base function for a single i2c transaction, in which both parties may send and receive data
-    /// note: unlike wpilib proper, transaction returns a new String as the result, and consumes the str parameter
-    pub fn transaction(&self, sent: &str, send_size: i32, received: &str, receive_size: i32) -> Result<String, I2cState> {
-        let send_string = String::from(sent);
-        let receive_string = String::from(received);
-        let send_bytes: *mut u8 = send_string.into_bytes().as_mut_ptr();
-        let receive_bytes: *mut u8 = receive_string.into_bytes().as_mut_ptr();
+    /// perform a simultaneous read from and write to an i2c device
+    pub fn transaction(&mut self, sent: &mut [u8], received: &mut [u8]) -> Result<(), I2cError> {
         let status = unsafe {
-            HAL_TransactionI2C(self.port as i32, self.device_address, send_bytes, send_size, receive_bytes, receive_size)
+            HAL_TransactionI2C(self.port as i32, self.device_address, sent.as_mut_ptr(), sent.len() as i32,
+                                                                      received.as_mut_ptr(), received.len() as i32)
         };
         match status >= 0 {
-            true => {
-                unsafe {
-                    match String::from_utf8(slice::from_raw_parts(receive_bytes, receive_size as usize).to_vec()) {
-                        Ok(msg) => Ok(msg),
-                        _ => {
-                            Err(I2cState::InvalidReceiveString)
-                        },
-                    }
-                }
-            },
-            false => Err(match status {
-                -1 => I2cState::TransferAbort,
-                _ => I2cState::IOError,
-            }),
-        }
-    }
-
-    /// helper function to read from i2c using the size of the expected message
-    /// returns a string with capacity of receive size
-    pub fn read(&self, receive_size: i32) -> Result<String, I2cState> {
-        let mut container: Vec<u8> = vec![];
-        let mut i = 0;
-        while i < receive_size {
-            container.push(0u8);
-            i += 1;
-        }
-        let buffer: *mut u8 = container.as_mut_ptr();
-        let status = unsafe {
-            HAL_ReadI2C(self.port as i32, self.device_address, buffer, receive_size)
-        };
-        match status >= 0 {
-            true => unsafe { Ok(String::from_raw_parts(buffer, receive_size as usize, receive_size as usize)) },
-            false => Err(match status {
-                -1 => I2cState::TransferAbort,
-                _ => I2cState::IOError,
-            }),
-        }
-    }
-
-    /// helper function to write to i2c
-    /// to use, pass the message and its size
-    /// note: analogous to WriteBulk on wpilib proper
-    pub fn write(&self, sent: &str, send_size: i32) -> I2cState {
-        let send_string = String::from(sent);
-        let send_bytes: *mut u8 = send_string.into_bytes().as_mut_ptr();
-        let status = unsafe {
-            HAL_WriteI2C(self.port as i32, self.device_address, send_bytes, send_size)
-        };
-        match status >= 0 {
-            true => I2cState::Success,
+            true => Ok(()),
             false => match status {
-                -1 => I2cState::TransferAbort,
-                _ => I2cState::IOError,
+                -1 => Err(I2cError::TransferAbort),
+                _ => Err(I2cError::IOError),
+            }
+        }
+    }
+
+    /// reads received message to inputed byte slice
+    pub fn read(&self, received: &mut [u8]) -> Result<(), I2cError> {
+        let status = unsafe {
+            HAL_ReadI2C(self.port as i32, self.device_address, received.as_mut_ptr(), received.len() as i32)
+        };
+        match status >= 0 {
+            true => Ok(()),
+            false => match status {
+                -1 => Err(I2cError::TransferAbort),
+                _ => Err(I2cError::IOError),
+            }
+        }
+    }
+
+    /// writes byte slice to i2c device
+    pub fn write(&mut self, sent: &mut [u8]) -> Result<(), I2cError> {
+        let status = unsafe {
+            HAL_WriteI2C(self.port as i32, self.device_address, sent.as_mut_ptr(), sent.len() as i32)
+        };
+        match status >= 0 {
+            true => Ok(()),
+            false => match status {
+                -1 => Err(I2cError::TransferAbort),
+                _ => Err(I2cError::IOError),
             }
         }
     }
