@@ -16,10 +16,14 @@ pub enum I2cState {
     // TODO find is there is any way to get more i2c transaction information out of HAl than just
     // success or failure
 
-    /// Indicates an error in an i2c transaction
+    /// Indicates a general error in an i2c transaction
     IOError,
     /// Indicates when no string, or an invalid string was received from the i2c transaction
     InvalidReceiveString,
+    /// HAL i2c functions return -1 on abort
+    TransferAbort,
+    /// HAL i2c functions return >= 0 when successful
+    Success,
 }
 
 /// Struct for sending and receiving data over i2c
@@ -45,7 +49,7 @@ impl I2cInterface {
         let status = unsafe {
             HAL_TransactionI2C(self.port as i32, self.device_address, send_bytes, send_size, receive_bytes, receive_size)
         };
-        match status < 0 {
+        match status >= 0 {
             true => {
                 unsafe {
                     match String::from_utf8(slice::from_raw_parts(receive_bytes, receive_size as usize).to_vec()) {
@@ -56,7 +60,10 @@ impl I2cInterface {
                     }
                 }
             },
-            false => Err(I2cState::IOError),
+            false => match status {
+                -1 => Err(I2cState::TransferAbort),
+                _ => Err(I2cState::IOError),
+            },
         }
     }
 
@@ -73,24 +80,30 @@ impl I2cInterface {
         let status = unsafe {
             HAL_ReadI2C(self.port as i32, self.device_address, buffer, receive_size)
         };
-        match status < 0 {
+        match status >= 0 {
             true => unsafe { Ok(String::from_raw_parts(buffer, receive_size as usize, receive_size as usize)) },
-            _ => Err(I2cState::IOError),
+            false => Err(match status {
+                -1 => I2cState::TransferAbort,
+                _ => I2cState::IOError,
+            }),
         }
     }
 
     /// helper function to write to i2c
     /// to use, pass the message and its size
     /// note: analogous to WriteBulk on wpilib proper
-    pub fn write(&self, sent: &str, send_size: i32) -> Result<bool, I2cState> {
+    pub fn write(&self, sent: &str, send_size: i32) -> I2cState {
         let send_string = String::from(sent);
         let send_bytes: *mut u8 = send_string.into_bytes().as_mut_ptr();
         let status = unsafe {
             HAL_WriteI2C(self.port as i32, self.device_address, send_bytes, send_size)
         };
-        match status < 0 {
-            true => Ok(true),
-            _ => Err(I2cState::IOError),
+        match status >= 0 {
+            true => I2cState::Success,
+            false => match status {
+                -1 => I2cState::TransferAbort,
+                _ => I2cState::IOError,
+            }
         }
     }
 }
