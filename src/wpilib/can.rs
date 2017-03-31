@@ -19,7 +19,7 @@ pub enum CanError {
     /// Caller attempted to insert data into a buffer that is full.
     BufferFull,
     /// Some other error happened
-    Other(HalError)
+    Other(HalError),
 }
 
 impl From<i32> for CanError {

@@ -96,7 +96,7 @@ pub struct BufferedSolenoid<'a> {
 }
 
 impl BufferedPcm {
-    /// Create a new BufferedPcm on the specified module, returning None if the module is invalid.
+    /// Create a new BufferedPcm on the specified module, returning an Err if the module is invalid.
     pub fn new(module: i32) -> Result<BufferedPcm, SolenoidCreationError> {
         if !sensor::check_solenoid_module(module) {
             Err(SolenoidCreationError::ModuleDNE)
@@ -108,9 +108,11 @@ impl BufferedPcm {
         }
     }
 
-    /// Make a new BufferedSolenoid on this PCM on the specified channel, returning None if the
+    /// Make a new BufferedSolenoid on this PCM on the specified channel, returning an Err if the
     /// channel is invalid.
-    pub fn make_solenoid<'a>(&'a self, channel: i32) -> Result<BufferedSolenoid<'a>, SolenoidCreationError> {
+    pub fn make_solenoid<'a>(&'a self,
+                             channel: i32)
+                             -> Result<BufferedSolenoid<'a>, SolenoidCreationError> {
         if !sensor::check_solenoid_channel(channel) {
             Err(SolenoidCreationError::ChannelDNE)
         } else {
