@@ -1,3 +1,5 @@
+use std::env;
+
 fn main() {
     for lib in ["HALAthena",
                 "wpiutil",
@@ -15,6 +17,8 @@ fn main() {
         println!("cargo:rustc-link-lib=dylib={}", lib);
     }
 
-    println!("cargo:rustc-link-search=native=ni-libraries");
-    println!("cargo:rustc-link-search=native=athena/lib");
+    let path = env::current_dir().unwrap();
+
+    println!("cargo:rustc-link-search=native={}/ni-libraries", path.display());
+    println!("cargo:rustc-link-search=native={}/athena/lib", path.display());
 }
