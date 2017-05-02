@@ -2,9 +2,7 @@ use wpilib::wpilib_hal::*;
 use wpilib::usage::*;
 use wpilib::hal_call::*;
 
-use std::slice;
-
-/// Helper enum that describes one of two possible locations on the roborio for i2c devices
+/// Describes one of two possible locations on the roborio for i2c devices
 #[derive(Copy, Clone)]
 pub enum I2cPort {
     /// Enum option for i2c device plugged into the onboard i2c connectors on the roborio
@@ -13,7 +11,7 @@ pub enum I2cPort {
     MXP = 1,
 }
 
-/// Describes various errored or otherwise special cases that may result from an i2c transaction
+/// Describe various errored or otherwise special cases that may result from an i2c transaction
 pub enum I2cError {
     // TODO find is there is any way to get more i2c transaction information out of HAl than just
     // success or failure
@@ -33,7 +31,7 @@ pub struct I2cInterface {
 }
 
 impl I2cInterface {
-    /// users create a new I2cInterface here
+    /// Create a new I2cInterface here
     pub fn new(p: I2cPort, addr: i32) -> HalResult<I2cInterface> {
         let mut init_status = 0;
         unsafe {
@@ -46,7 +44,7 @@ impl I2cInterface {
         }
     }
 
-    /// perform a simultaneous read from and write to an i2c device
+    /// Perform a simultaneous read from and write to an i2c device
     pub fn transaction(&mut self, sent: &[u8], received: &mut [u8]) -> Result<(), I2cError> {
         let status = unsafe {
             HAL_TransactionI2C(self.port as i32, self.device_address, sent.as_ptr() as *mut u8, sent.len() as i32,
@@ -59,7 +57,7 @@ impl I2cInterface {
         }
     }
 
-    /// reads received message to inputed byte slice
+    /// Read received message to inputed byte slice
     pub fn read(&self, received: &mut [u8]) -> Result<(), I2cError> {
         let status = unsafe {
             HAL_ReadI2C(self.port as i32, self.device_address, received.as_mut_ptr(), received.len() as i32)
@@ -71,7 +69,7 @@ impl I2cInterface {
         }
     }
 
-    /// writes byte slice to i2c device
+    /// Write byte slice to i2c device
     pub fn write(&mut self, sent: &[u8]) -> Result<(), I2cError> {
         let status = unsafe {
             HAL_WriteI2C(self.port as i32, self.device_address, sent.as_ptr() as *mut u8, sent.len() as i32)
@@ -83,8 +81,8 @@ impl I2cInterface {
         }
     }
 
-    /// performs string transaction with connected i2c device
-    pub fn string_transaction(&mut self, sent_string: &str, received_string: &str) -> Result<(), I2cError> {
+    /// Perform string transaction with connected i2c device
+    pub fn string_transaction(&mut self, sent_string: &str, received_string: &mut str) -> Result<(), I2cError> {
         let status = unsafe {
             HAL_TransactionI2C(self.port as i32, self.device_address, sent_string.as_bytes().as_ptr() as *mut u8, sent_string.len() as i32,
                                                                       received_string.as_bytes().as_ptr() as *mut u8, received_string.len() as i32)
@@ -96,24 +94,22 @@ impl I2cInterface {
         }
     }
 
-    /// reads received message to str
+    /// Read received message to str
     pub fn read_string(&self, received_string: &mut str) -> Result<(), I2cError> {
         let status = unsafe {
             HAL_ReadI2C(self.port as i32, self.device_address, received_string.as_bytes().as_ptr() as *mut u8, received_string.len() as i32)
         };
         match status {
             -1 => Err(I2cError::TransferAbort),
-            //check to make sure a valid string was received
-            x if x >= 0 => match unsafe { String::from_utf8(slice::from_raw_parts(received_string.as_bytes().as_ptr(),
-                                                                                  received_string.len()).to_vec()) } {
-                Ok(_) => Ok(()),
-                _ => Err(I2cError::InvalidReceiveString),
+            x if x >= 0 => match received_string.len() == x as usize {
+                true => Ok(()),
+                false => Err(I2cError::InvalidReceiveString),
             },
             _ => Err(I2cError::IOError),
         }
     }
 
-    /// writes str to i2c device
+    /// Write str to i2c device
     pub fn write_string(&mut self, sent_string: &str) -> Result<(), I2cError> {
         let status = unsafe {
             HAL_WriteI2C(self.port as i32, self.device_address, sent_string.as_bytes().as_ptr() as *mut u8, sent_string.len() as i32)
@@ -127,7 +123,7 @@ impl I2cInterface {
 }
 
 impl Drop for I2cInterface {
-    /// destructor closes I2C connection cleanly
+    /// Close I2C connection cleanly
     fn drop(&mut self) {
         unsafe { HAL_CloseI2C(self.port as i32); }
     }
