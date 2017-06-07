@@ -181,7 +181,7 @@ impl DriverStation {
     }
 
     /// Report a message at a throttled rate
-    fn report_throttled(&mut self, is_error: bool, message: &str) {
+    pub fn report_throttled(&mut self, is_error: bool, message: &str) {
         // Don't actually throttle it; FPGA timer is unimplemented
         let now = 1f64;
         if self.report_throttler.update(now) {
