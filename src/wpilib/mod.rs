@@ -57,6 +57,10 @@ pub use self::speed_controller::*;
 mod pwm_speed_controller;
 pub use self::pwm_speed_controller::*;
 
+/// i2c communication
+mod i2c;
+pub use self::i2c::*;
+
 /// defines all joystick related traits and structs
 pub mod joystick;
 pub use self::joystick::*;
