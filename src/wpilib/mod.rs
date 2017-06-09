@@ -64,3 +64,9 @@ pub use self::i2c::*;
 /// defines all joystick related traits and structs
 pub mod joystick;
 pub use self::joystick::*;
+
+mod can;
+pub use self::can::*;
+
+mod pcm;
+pub use self::pcm::*;
